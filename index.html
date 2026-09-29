@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Universe — Made by PANOS KHAN FOUNDATION</title>
+<style>
+:root{
+  --primary:#7c3aed;
+  --primary2:#4c1d95;
+  --accent:#a78bfa;
+  --gold:#f59e0b;
+  --bg:#020617;
+  --bg2:#060b1a;
+  --card:#0d1526;
+  --card2:#111827;
+  --border:#1e293b;
+  --border2:#1a2540;
+  --text:#e2e8f0;
+  --muted:#94a3b8;
+  --green:#10b981;
+  --red:#ef4444;
+  --blue:#3b82f6;
+  --pink:#ec4899;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden}
+
+/* SCROLL PROGRESS */
+#progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#7c3aed,#ec4899,#f59e0b);z-index:9999;transition:width .1s}
+
+/* NAV */
+nav{position:fixed;top:3px;left:0;right:0;z-index:1000;background:rgba(2,6,23,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border2);padding:0 1.5rem}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:1rem;height:52px}
+.nav-logo{font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+.nav-links{display:flex;gap:.15rem;margin-left:auto;flex-wrap:wrap}
+.nav-link{padding:.3rem .6rem;border-radius:6px;font-size:.75rem;color:var(--muted);cursor:pointer;transition:all .2s;border:none;background:none;white-space:nowrap}
+.nav-link:hover{color:var(--text);background:rgba(124,58,237,.15)}
+#nav-cta{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;padding:.35rem .8rem;border-radius:8px;font-size:.75rem;border:none;cursor:pointer;font-weight:600;white-space:nowrap}
+
+/* CANVAS */
+#space-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 1.5rem 3rem;z-index:1}
+
+/* PLANET */
+.planet-wrap{position:relative;width:440px;height:440px;margin:0 auto 2rem;flex-shrink:0}
+.planet{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#e0d5ff 0%,#b39ddb 8%,#7c3aed 28%,#5b21b6 50%,#3b0e8c 68%,#1e0a3c 85%,#0d0520 100%);box-shadow:0 0 0 1px rgba(167,139,250,.15),0 0 40px rgba(124,58,237,.6),0 0 80px rgba(124,58,237,.35),0 0 140px rgba(124,58,237,.2),0 0 200px rgba(76,29,149,.15),inset 0 0 60px rgba(0,0,0,.4);animation:planetFloat 8s ease-in-out infinite;cursor:pointer;transition:transform .3s}
+.planet:hover{transform:translate(-50%,-50%) scale(1.04)}
+.planet::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0%,rgba(167,139,250,.08) 15%,transparent 30%,rgba(124,58,237,.06) 50%,transparent 65%,rgba(196,181,253,.05) 80%,transparent 100%);animation:planetSpin 20s linear infinite}
+.planet::after{content:'';position:absolute;top:10%;left:15%;width:35%;height:35%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.35) 0%,transparent 70%);pointer-events:none}
+.planet-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;z-index:5}
+.planet-text .line1{font-size:.55rem;font-weight:900;letter-spacing:.25em;color:rgba(255,255,255,.9);text-shadow:0 0 10px rgba(255,255,255,.8);text-transform:uppercase}
+.planet-text .line2{font-size:.8rem;font-weight:900;letter-spacing:.1em;color:#fff;text-shadow:0 0 15px rgba(255,255,255,.9);text-transform:uppercase;margin:.15rem 0}
+.planet-text .line3{font-size:.45rem;font-weight:700;letter-spacing:.2em;color:rgba(196,181,253,.9);text-shadow:0 0 8px rgba(167,139,250,.8);text-transform:uppercase}
+/* Rings */
+.ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1.5px solid;transform-origin:center}
+.ring1{width:340px;height:340px;margin:-170px 0 0 -170px;border-color:rgba(167,139,250,.25);transform:rotateX(75deg);animation:ringSpin 12s linear infinite}
+.ring2{width:390px;height:390px;margin:-195px 0 0 -195px;border-color:rgba(236,72,153,.18);transform:rotateX(75deg) rotateZ(30deg);animation:ringSpin 18s linear infinite reverse}
+.ring3{width:430px;height:430px;margin:-215px 0 0 -215px;border-color:rgba(124,58,237,.12);transform:rotateX(72deg) rotateZ(-15deg);animation:ringSpin 25s linear infinite}
+/* Saturn ring flat */
+.saturn-ring{position:absolute;top:50%;left:50%;width:380px;height:70px;margin:-35px 0 0 -190px;border-radius:50%;border:none;background:linear-gradient(90deg,transparent 5%,rgba(167,139,250,.08) 20%,rgba(196,181,253,.14) 35%,rgba(167,139,250,.1) 50%,rgba(196,181,253,.12) 65%,rgba(167,139,250,.06) 80%,transparent 95%);transform:rotateX(75deg);pointer-events:none}
+/* Orbit dots */
+.orb-dot{position:absolute;width:6px;height:6px;border-radius:50%;top:50%;left:50%}
+.orb-dot.d1{background:#a78bfa;box-shadow:0 0 8px #a78bfa;animation:orb1 12s linear infinite}
+.orb-dot.d2{background:#ec4899;box-shadow:0 0 8px #ec4899;animation:orb2 18s linear infinite}
+.orb-dot.d3{background:#f59e0b;box-shadow:0 0 6px #f59e0b;animation:orb3 25s linear infinite}
+/* Glow pulse */
+.planet-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.2) 0%,transparent 70%);animation:glowPulse 3s ease-in-out infinite;pointer-events:none}
+
+@keyframes planetFloat{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-15px)}}
+@keyframes planetSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes ringSpin{from{transform:rotateX(75deg) rotateZ(0deg)}to{transform:rotateX(75deg) rotateZ(360deg)}}
+@keyframes orb1{from{transform:translate(-3px,-3px) rotate(0deg) translateX(170px)}to{transform:translate(-3px,-3px) rotate(360deg) translateX(170px)}}
+@keyframes orb2{from{transform:translate(-3px,-3px) rotate(0deg) translateX(195px)}to{transform:translate(-3px,-3px) rotate(360deg) translateX(195px)}}
+@keyframes orb3{from{transform:translate(-3px,-3px) rotate(0deg) translateX(215px)}to{transform:translate(-3px,-3px) rotate(360deg) translateX(215px)}}
+@keyframes glowPulse{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
+
+.hero-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;line-height:1.1;margin-bottom:1rem}
+.hero-title span{background:linear-gradient(135deg,#a78bfa 0%,#ec4899 50%,#f59e0b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:1.1rem;color:var(--muted);max-width:600px;margin:.5rem auto 2rem}
+.hero-stats{display:flex;gap:2rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;padding:.75rem 2rem;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:.95rem;transition:transform .2s,box-shadow .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(124,58,237,.4)}
+.btn-secondary{background:transparent;color:var(--text);padding:.75rem 2rem;border-radius:10px;border:1px solid var(--border);cursor:pointer;font-weight:600;font-size:.95rem;transition:all .2s}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+
+/* SECTIONS */
+section{position:relative;z-index:1;padding:4rem 1.5rem}
+.section-inner{max-width:1400px;margin:0 auto}
+.section-title{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:900;margin-bottom:.5rem}
+.section-title span{background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.section-sub{color:var(--muted);margin-bottom:2rem;font-size:.95rem}
+
+/* TOOL OF THE DAY */
+#totd{background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(236,72,153,.05));border:1px solid rgba(124,58,237,.2);border-radius:16px;padding:2rem;margin:2rem 0;display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.totd-badge{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;padding:.3rem .8rem;border-radius:20px;font-size:.75rem;font-weight:700;white-space:nowrap}
+.totd-name{font-size:1.6rem;font-weight:900;margin:.25rem 0}
+.totd-why{color:var(--muted);font-size:.9rem;margin:.25rem 0}
+.totd-link{display:inline-block;margin-top:.75rem;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;padding:.5rem 1.25rem;border-radius:8px;text-decoration:none;font-weight:700;font-size:.85rem;transition:transform .2s}
+.totd-link:hover{transform:translateY(-2px)}
+
+/* TRENDING */
+.trending-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:1.5rem}
+.trending-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:all .2s;text-decoration:none;display:block}
+.trending-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 25px rgba(124,58,237,.15)}
+.trending-rank{font-size:1.4rem;font-weight:900;color:var(--border);margin-bottom:.25rem}
+.trending-rank.top3{background:linear-gradient(135deg,#f59e0b,#ef4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.trending-name{font-weight:700;font-size:.95rem;margin-bottom:.2rem}
+.trending-cat{font-size:.75rem;color:var(--muted)}
+
+/* SEARCH + FILTER */
+.search-bar-wrap{max-width:600px;margin:0 auto 2rem;position:relative}
+.search-bar{width:100%;padding:1rem 1rem 1rem 3rem;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:1rem;outline:none;transition:border .2s}
+.search-bar:focus{border-color:var(--accent)}
+.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1.1rem}
+.filter-wrap{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;justify-content:center}
+.filter-btn{padding:.4rem .9rem;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:.8rem;transition:all .2s;white-space:nowrap}
+.filter-btn:hover,.filter-btn.active{background:var(--primary);border-color:var(--primary);color:#fff}
+.tools-count{text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:1.5rem}
+
+/* TOOL CARDS */
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem;text-decoration:none;display:block;transition:all .2s;position:relative;overflow:hidden}
+.tool-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(124,58,237,.04));opacity:0;transition:opacity .2s}
+.tool-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 25px rgba(124,58,237,.12)}
+.tool-card:hover::before{opacity:1}
+.card-head{display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem}
+.card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.card-name{font-weight:700;font-size:.95rem;color:var(--text)}
+.card-badges{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.2rem}
+.badge{padding:.1rem .4rem;border-radius:4px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.badge-hot{background:rgba(239,68,68,.15);color:#ef4444}
+.badge-new{background:rgba(16,185,129,.15);color:#10b981}
+.badge-opensource{background:rgba(59,130,246,.15);color:#3b82f6}
+.badge-api{background:rgba(245,158,11,.15);color:#f59e0b}
+.badge-mobile{background:rgba(236,72,153,.15);color:#ec4899}
+.free-badge{display:inline-block;padding:.1rem .4rem;border-radius:4px;font-size:.65rem;font-weight:700;background:rgba(16,185,129,.12);color:#10b981}
+.card-cat{font-size:.72rem;color:var(--muted);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.04em}
+.card-desc{font-size:.82rem;color:var(--muted);line-height:1.5}
+
+/* QUIZ */
+.quiz-wrap{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:2rem;max-width:700px;margin:0 auto}
+.quiz-q{font-size:1.2rem;font-weight:700;margin-bottom:1.25rem;text-align:center}
+.quiz-opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem}
+.quiz-opt{padding:.75rem 1rem;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;font-size:.9rem;transition:all .2s;text-align:center}
+.quiz-opt:hover,.quiz-opt.selected{background:rgba(124,58,237,.2);border-color:var(--primary);color:var(--accent)}
+.quiz-progress{display:flex;gap:.4rem;margin-bottom:1.5rem;justify-content:center}
+.quiz-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:background .3s}
+.quiz-dot.done{background:var(--primary)}
+.quiz-result{text-align:center;padding:1.5rem}
+.quiz-result h3{font-size:1.3rem;font-weight:800;margin-bottom:1rem}
+.quiz-cats{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+.quiz-cat-btn{padding:.5rem 1rem;border-radius:20px;background:rgba(124,58,237,.15);border:1px solid var(--primary);color:var(--accent);cursor:pointer;font-size:.85rem;transition:all .2s}
+.quiz-cat-btn:hover{background:var(--primary);color:#fff}
+.quiz-restart{margin-top:1rem;background:transparent;border:1px solid var(--border);color:var(--muted);padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.85rem}
+
+/* COMPARE */
+.compare-area{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:2rem}
+.compare-selects{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.compare-select{flex:1;min-width:200px;padding:.6rem 1rem;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.9rem}
+.compare-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.compare-table th{background:rgba(124,58,237,.12);padding:.6rem 1rem;text-align:left;border:1px solid var(--border);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+.compare-table td{padding:.6rem 1rem;border:1px solid var(--border2);vertical-align:top}
+.compare-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.yes{color:#10b981;font-weight:700}
+.no{color:#ef4444}
+.maybe{color:#f59e0b}
+
+/* WORKFLOWS */
+.workflows-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.workflow-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.workflow-title{font-size:1rem;font-weight:800;margin-bottom:1rem}
+.workflow-steps{list-style:none}
+.workflow-steps li{display:flex;align-items:flex-start;gap:.5rem;padding:.4rem 0;font-size:.85rem;color:var(--muted);border-bottom:1px solid var(--border2)}
+.workflow-steps li:last-child{border-bottom:none}
+.step-num{background:linear-gradient(135deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;min-width:1.2rem}
+
+/* PROMPTS */
+.prompts-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.ptab{padding:.4rem .9rem;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:.8rem;transition:all .2s}
+.ptab.active{background:var(--primary);border-color:var(--primary);color:#fff}
+.prompts-list{display:flex;flex-direction:column;gap:.6rem}
+.prompt-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;cursor:pointer;transition:border .2s}
+.prompt-item:hover{border-color:var(--accent)}
+.prompt-text{font-size:.88rem;flex:1;line-height:1.5}
+.copy-btn{background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);color:var(--accent);padding:.3rem .6rem;border-radius:6px;font-size:.75rem;cursor:pointer;white-space:nowrap;transition:all .2s}
+.copy-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.copy-btn.copied{background:rgba(16,185,129,.15);color:#10b981;border-color:#10b981}
+
+/* GLOSSARY */
+.glossary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.gloss-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem}
+.gloss-term{font-weight:800;font-size:.95rem;color:var(--accent);margin-bottom:.35rem}
+.gloss-def{font-size:.82rem;color:var(--muted);line-height:1.6}
+
+/* NEWSLETTER / SUBMIT */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+@media(max-width:768px){.two-col{grid-template-columns:1fr}}
+.form-box{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:2rem}
+.form-box h3{font-size:1.2rem;font-weight:800;margin-bottom:.4rem}
+.form-box p{font-size:.85rem;color:var(--muted);margin-bottom:1.5rem}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:.4rem;font-weight:600}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:.65rem 1rem;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.9rem;outline:none;transition:border .2s;font-family:inherit}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{height:80px;resize:vertical}
+.form-submit{width:100%;padding:.75rem;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border:none;cursor:pointer;font-weight:700;font-size:.95rem;transition:transform .2s}
+.form-submit:hover{transform:translateY(-1px)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;text-align:center;z-index:1;position:relative}
+.footer-logo{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.footer-tagline{color:var(--muted);font-size:.85rem;margin-bottom:1.5rem}
+.footer-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:color .2s}
+.footer-links a:hover{color:var(--accent)}
+.footer-copy{font-size:.75rem;color:var(--border);margin-top:1rem}
+
+/* TOAST */
+#toast{position:fixed;bottom:2rem;right:2rem;background:var(--card);border:1px solid var(--accent);padding:.75rem 1.25rem;border-radius:10px;font-size:.85rem;transform:translateY(100px);opacity:0;transition:all .3s;z-index:9999}
+#toast.show{transform:translateY(0);opacity:1}
+
+/* BACK TO TOP */
+#btt{position:fixed;bottom:2rem;left:2rem;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;color:#fff;font-size:1.1rem;cursor:pointer;z-index:999;opacity:0;transition:opacity .3s;display:flex;align-items:center;justify-content:center}
+#btt.visible{opacity:1}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .planet-wrap{width:300px;height:300px}
+  .planet{width:200px;height:200px}
+  .ring1{width:240px;height:240px;margin:-120px 0 0 -120px}
+  .ring2{width:275px;height:275px;margin:-137.5px 0 0 -137.5px}
+  .ring3{width:295px;height:295px;margin:-147.5px 0 0 -147.5px}
+  .saturn-ring{width:270px;height:50px;margin:-25px 0 0 -135px}
+  .tools-grid{grid-template-columns:1fr}
+  .hero-stats{gap:1.25rem}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<canvas id="space-canvas"></canvas>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">🌌 AI Universe</div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="scrollTo('#tools')">Tools</button>
+      <button class="nav-link" onclick="scrollTo('#trending')">Trending</button>
+      <button class="nav-link" onclick="scrollTo('#quiz')">Find My AI</button>
+      <button class="nav-link" onclick="scrollTo('#workflows')">Workflows</button>
+      <button class="nav-link" onclick="scrollTo('#prompts')">Prompts</button>
+      <button class="nav-link" onclick="scrollTo('#compare')">Compare</button>
+      <button class="nav-link" onclick="scrollTo('#glossary')">Glossary</button>
+    </div>
+    <button id="nav-cta" onclick="scrollTo('#tools')">Explore Tools ↓</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="planet-wrap" id="planet">
+    <div class="planet-glow"></div>
+    <div class="ring ring1"></div>
+    <div class="ring ring2"></div>
+    <div class="ring ring3"></div>
+    <div class="saturn-ring"></div>
+    <div class="planet" id="planet-sphere">
+      <div class="planet-text">
+        <div class="line1">AI</div>
+        <div class="line2">UNIVERSE</div>
+        <div class="line3">PANOS KHAN FOUNDATION</div>
+      </div>
+    </div>
+    <div class="orb-dot d1"></div>
+    <div class="orb-dot d2"></div>
+    <div class="orb-dot d3"></div>
+  </div>
+  <h1 class="hero-title">The <span>AI Universe</span><br>All Free AI Tools in One Place</h1>
+  <p class="hero-sub">Discover 345+ free AI tools across 30 categories. Search, compare, and find the perfect AI for any task.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">345+</div><div class="stat-label">Free Tools</div></div>
+    <div class="stat"><div class="stat-num">30</div><div class="stat-label">Categories</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Workflows</div></div>
+    <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Prompts</div></div>
+  </div>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="scrollTo('#tools')">🚀 Explore All Tools</button>
+    <button class="btn-secondary" onclick="scrollTo('#quiz')">🎯 Find My AI</button>
+  </div>
+</section>
+
+<!-- TOOL OF THE DAY -->
+<section style="padding:1rem 1.5rem 2rem">
+  <div class="section-inner">
+    <div id="totd">
+      <div>
+        <div class="totd-badge">✨ Tool of the Day</div>
+        <div class="totd-name" id="totd-name">Loading...</div>
+        <div id="totd-cat" style="font-size:.8rem;color:var(--muted);margin:.1rem 0"></div>
+        <div class="totd-why" id="totd-why"></div>
+        <a href="#" id="totd-link" class="totd-link" target="_blank">Visit Tool →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRENDING -->
+<section id="trending">
+  <div class="section-inner">
+    <h2 class="section-title">🔥 <span>Trending</span> Right Now</h2>
+    <p class="section-sub">The hottest AI tools everyone is talking about</p>
+    <div class="trending-grid" id="trending-grid"></div>
+  </div>
+</section>
+
+<!-- FIND MY AI QUIZ -->
+<section id="quiz">
+  <div class="section-inner">
+    <h2 class="section-title" style="text-align:center">🎯 Find <span>My AI</span></h2>
+    <p class="section-sub" style="text-align:center">Answer 5 quick questions and we'll recommend the best AI tools for you</p>
+    <div class="quiz-wrap">
+      <div class="quiz-progress" id="quiz-progress"></div>
+      <div id="quiz-content"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN TOOLS DIRECTORY -->
+<section id="tools">
+  <div class="section-inner">
+    <h2 class="section-title">🌌 <span>All AI Tools</span> Directory</h2>
+    <p class="section-sub">Browse 345+ free AI tools — search or filter by category</p>
+    <div class="search-bar-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-bar" id="search" placeholder="Search any AI tool..." oninput="renderGrid()">
+    </div>
+    <div class="filter-wrap" id="filter-wrap"></div>
+    <div class="tools-count" id="tools-count"></div>
+    <div class="tools-grid" id="tools-grid"></div>
+  </div>
+</section>
+
+<!-- COMPARE TOOLS -->
+<section id="compare">
+  <div class="section-inner">
+    <h2 class="section-title">⚡ <span>Compare</span> AI Tools</h2>
+    <p class="section-sub">Pick two tools and see them side by side</p>
+    <div class="compare-area">
+      <div class="compare-selects">
+        <select class="compare-select" id="cmp1" onchange="renderCompare()"><option value="">Choose Tool A...</option></select>
+        <select class="compare-select" id="cmp2" onchange="renderCompare()"><option value="">Choose Tool B...</option></select>
+      </div>
+      <div id="cmp-table"></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW GUIDES -->
+<section id="workflows">
+  <div class="section-inner">
+    <h2 class="section-title">📋 <span>AI Workflow</span> Guides</h2>
+    <p class="section-sub">Step-by-step AI pipelines for common creative and business tasks</p>
+    <div class="workflows-grid" id="workflows-grid"></div>
+  </div>
+</section>
+
+<!-- PROMPT LIBRARY -->
+<section id="prompts">
+  <div class="section-inner">
+    <h2 class="section-title">✨ <span>Prompt Library</span></h2>
+    <p class="section-sub">100+ ready-to-use AI prompts — click any to copy instantly</p>
+    <div class="prompts-tabs" id="prompts-tabs"></div>
+    <div class="prompts-list" id="prompts-list"></div>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section id="glossary">
+  <div class="section-inner">
+    <h2 class="section-title">📖 <span>AI Glossary</span></h2>
+    <p class="section-sub">Key AI terms explained in plain English</p>
+    <div class="glossary-grid" id="glossary-grid"></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER + SUBMIT -->
+<section>
+  <div class="section-inner">
+    <div class="two-col">
+      <div class="form-box">
+        <h3>📧 Stay Updated</h3>
+        <p>Get weekly AI tool discoveries and prompt tips delivered to your inbox.</p>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com" id="nl-email"></div>
+        <div class="form-group"><label>Your Role</label>
+          <select><option>Creator / Influencer</option><option>Developer</option><option>Marketer</option><option>Student</option><option>Business Owner</option><option>Researcher</option></select>
+        </div>
+        <button class="form-submit" onclick="newsletter()">Subscribe Free →</button>
+      </div>
+      <div class="form-box">
+        <h3>🛠️ Submit a Tool</h3>
+        <p>Know a great free AI tool we're missing? Submit it to be featured!</p>
+        <div class="form-group"><label>Tool Name</label><input type="text" placeholder="e.g. SuperAI" id="sub-name"></div>
+        <div class="form-group"><label>Website URL</label><input type="text" placeholder="https://..." id="sub-url"></div>
+        <div class="form-group"><label>Category</label>
+          <select id="sub-cat"><option>Chatbots & Assistants</option>
+<option>Image Generation</option>
+<option>Video Generation</option>
+<option>Audio & Music</option>
+<option>Writing & Content</option>
+<option>Code & Development</option>
+<option>Design & Creative</option>
+<option>SEO & Marketing</option>
+<option>Productivity</option>
+<option>Research & Analysis</option>
+<option>Education</option>
+<option>Translation</option>
+<option>Voice & Speech</option>
+<option>Image Editing</option>
+<option>Customer Service</option>
+<option>Finance & Business</option>
+<option>Social Media</option>
+<option>3D & AR/VR</option>
+<option>No-Code & Automation</option>
+<option>AI Agents</option>
+<option>Data & Analytics</option>
+<option>Email</option>
+<option>Presentation</option>
+<option>Security</option>
+<option>Healthcare & Wellness</option>
+<option>Legal & Compliance</option>
+<option>HR & Recruiting</option>
+<option>E-Commerce</option>
+<option>Real Estate</option>
+<option>Gaming & Fun</option></select>
+        </div>
+        <div class="form-group"><label>Why is it great?</label><textarea id="sub-why" placeholder="Brief description..."></textarea></div>
+        <button class="form-submit" onclick="submitTool()">Submit Tool →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">🌌 AI Universe</div>
+  <div class="footer-tagline">Made with ❤️ by PANOS KHAN FOUNDATION — Empowering Everyone with AI</div>
+  <div class="footer-links">
+    <a href="#tools">All Tools</a>
+    <a href="#trending">Trending</a>
+    <a href="#quiz">Find My AI</a>
+    <a href="#workflows">Workflows</a>
+    <a href="#prompts">Prompts</a>
+    <a href="#compare">Compare</a>
+    <a href="#glossary">Glossary</a>
+  </div>
+  <div class="footer-copy">© 2024 PANOS KHAN FOUNDATION. All 345+ tools are free to access. AI Universe is a curated directory.</div>
+</footer>
+
+<div id="toast"></div>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// DATA
+const tools = [
+{"n":"ChatGPT","cat":"Chatbots & Assistants","url":"https://chat.openai.com","desc":"Most popular AI chatbot by OpenAI","b":["hot"]},
+{"n":"Claude","cat":"Chatbots & Assistants","url":"https://claude.ai","desc":"Anthropic's safe and helpful AI","b":["hot"]},
+{"n":"Google Gemini","cat":"Chatbots & Assistants","url":"https://gemini.google.com","desc":"Google's multimodal AI assistant","b":["new", "hot"]},
+{"n":"Perplexity AI","cat":"Chatbots & Assistants","url":"https://perplexity.ai","desc":"AI-powered search engine and chatbot","b":["hot"]},
+{"n":"Microsoft Copilot","cat":"Chatbots & Assistants","url":"https://copilot.microsoft.com","desc":"Microsoft's AI assistant powered by GPT-4","b":["hot"]},
+{"n":"Meta AI","cat":"Chatbots & Assistants","url":"https://meta.ai","desc":"Meta's free AI assistant","b":["new"]},
+{"n":"Mistral Chat","cat":"Chatbots & Assistants","url":"https://chat.mistral.ai","desc":"Open-weight European AI chatbot","b":["opensource"]},
+{"n":"HuggingChat","cat":"Chatbots & Assistants","url":"https://huggingface.co/chat","desc":"Open source chat interface","b":["opensource"]},
+{"n":"Poe","cat":"Chatbots & Assistants","url":"https://poe.com","desc":"Access multiple AI models in one place","b":["hot"]},
+{"n":"Pi","cat":"Chatbots & Assistants","url":"https://pi.ai","desc":"Personalized AI companion by Inflection","b":[]},
+{"n":"Character.AI","cat":"Chatbots & Assistants","url":"https://character.ai","desc":"Chat with AI characters and personas","b":["hot"]},
+{"n":"You.com","cat":"Chatbots & Assistants","url":"https://you.com","desc":"AI-powered search and assistant","b":[]},
+{"n":"Phind","cat":"Chatbots & Assistants","url":"https://phind.com","desc":"AI assistant for developers","b":[]},
+{"n":"Groq","cat":"Chatbots & Assistants","url":"https://groq.com","desc":"Ultra-fast AI inference platform","b":["api"]},
+{"n":"Cohere","cat":"Chatbots & Assistants","url":"https://cohere.com","desc":"Enterprise AI chat and language models","b":["api"]},
+{"n":"Together AI","cat":"Chatbots & Assistants","url":"https://together.ai","desc":"Open-source AI models platform","b":["opensource", "api"]},
+{"n":"Ollama","cat":"Chatbots & Assistants","url":"https://ollama.ai","desc":"Run LLMs locally on your computer","b":["opensource"]},
+{"n":"LM Studio","cat":"Chatbots & Assistants","url":"https://lmstudio.ai","desc":"Run open-source LLMs locally","b":["opensource"]},
+{"n":"Jan","cat":"Chatbots & Assistants","url":"https://jan.ai","desc":"Open source local AI chat app","b":["opensource"]},
+{"n":"OpenRouter","cat":"Chatbots & Assistants","url":"https://openrouter.ai","desc":"Access 100+ AI models with one API","b":["api"]},
+{"n":"Kimi","cat":"Chatbots & Assistants","url":"https://kimi.moonshot.cn","desc":"Long-context AI chat from Moonshot AI","b":[]},
+{"n":"DeepSeek","cat":"Chatbots & Assistants","url":"https://deepseek.com","desc":"Advanced reasoning AI from China","b":["new", "hot"]},
+{"n":"xAI Grok","cat":"Chatbots & Assistants","url":"https://grok.x.ai","desc":"Elon Musk's AI on X/Twitter","b":["new"]},
+{"n":"Llama (Meta)","cat":"Chatbots & Assistants","url":"https://llama.meta.com","desc":"Meta's open source language models","b":["opensource"]},
+{"n":"Midjourney","cat":"Image Generation","url":"https://midjourney.com","desc":"World's most popular AI image generator","b":["hot"]},
+{"n":"DALL-E 3","cat":"Image Generation","url":"https://openai.com/dall-e-3","desc":"OpenAI's advanced image generation","b":["hot", "api"]},
+{"n":"Stable Diffusion","cat":"Image Generation","url":"https://stability.ai","desc":"Open-source image generation model","b":["opensource", "api"]},
+{"n":"Adobe Firefly","cat":"Image Generation","url":"https://firefly.adobe.com","desc":"Adobe's commercial-safe AI art","b":["hot"]},
+{"n":"Leonardo AI","cat":"Image Generation","url":"https://leonardo.ai","desc":"Powerful AI image platform","b":["hot"]},
+{"n":"Ideogram","cat":"Image Generation","url":"https://ideogram.ai","desc":"AI that renders text in images","b":["new", "hot"]},
+{"n":"Flux","cat":"Image Generation","url":"https://blackforestlabs.ai","desc":"State-of-the-art open image model","b":["new", "hot", "opensource"]},
+{"n":"Playground AI","cat":"Image Generation","url":"https://playground.ai","desc":"Free AI image generation platform","b":[]},
+{"n":"NightCafe","cat":"Image Generation","url":"https://nightcafe.studio","desc":"AI art generator with community","b":[]},
+{"n":"Canva AI","cat":"Image Generation","url":"https://canva.com/ai-image-generator","desc":"AI image generation in Canva","b":[]},
+{"n":"SeaArt","cat":"Image Generation","url":"https://seaart.ai","desc":"Anime and art style AI generator","b":[]},
+{"n":"Tensor.art","cat":"Image Generation","url":"https://tensor.art","desc":"Free Stable Diffusion platform","b":[]},
+{"n":"Bing Image Creator","cat":"Image Generation","url":"https://bing.com/create","desc":"Microsoft's free DALL-E creator","b":[]},
+{"n":"Craiyon","cat":"Image Generation","url":"https://craiyon.com","desc":"Free AI image generator","b":[]},
+{"n":"DreamStudio","cat":"Image Generation","url":"https://dreamstudio.ai","desc":"Stability AI's official platform","b":["api"]},
+{"n":"Artbreeder","cat":"Image Generation","url":"https://artbreeder.com","desc":"Collaborative AI art creation","b":[]},
+{"n":"Krea AI","cat":"Image Generation","url":"https://krea.ai","desc":"Real-time AI image generation","b":["new"]},
+{"n":"Magnific AI","cat":"Image Generation","url":"https://magnific.ai","desc":"AI image upscaler and enhancer","b":["new"]},
+{"n":"Recraft","cat":"Image Generation","url":"https://recraft.ai","desc":"Vector and brand AI image generator","b":["new"]},
+{"n":"Freepik AI","cat":"Image Generation","url":"https://freepik.com/ai","desc":"AI image generator with stock","b":[]},
+{"n":"Getimg.ai","cat":"Image Generation","url":"https://getimg.ai","desc":"AI image tools and generation suite","b":[]},
+{"n":"RunwayML","cat":"Video Generation","url":"https://runwayml.com","desc":"Leading AI video generation platform","b":["hot", "api"]},
+{"n":"Pika Labs","cat":"Video Generation","url":"https://pika.art","desc":"Easy AI video from text/image","b":["hot"]},
+{"n":"Sora (OpenAI)","cat":"Video Generation","url":"https://sora.com","desc":"OpenAI's text-to-video model","b":["new", "hot"]},
+{"n":"Kling AI","cat":"Video Generation","url":"https://kling.ai","desc":"High-quality AI video generator","b":["new", "hot"]},
+{"n":"Luma Dream Machine","cat":"Video Generation","url":"https://lumalabs.ai","desc":"Realistic AI video generation","b":["hot"]},
+{"n":"HeyGen","cat":"Video Generation","url":"https://heygen.com","desc":"AI avatar video for business","b":["hot"]},
+{"n":"Synthesia","cat":"Video Generation","url":"https://synthesia.io","desc":"Create AI presenter videos","b":["hot"]},
+{"n":"D-ID","cat":"Video Generation","url":"https://d-id.com","desc":"Animate photos into talking videos","b":[]},
+{"n":"InVideo AI","cat":"Video Generation","url":"https://invideo.io","desc":"AI-powered video creation platform","b":[]},
+{"n":"Pictory","cat":"Video Generation","url":"https://pictory.ai","desc":"Turn scripts into videos","b":[]},
+{"n":"Fliki","cat":"Video Generation","url":"https://fliki.ai","desc":"Text to video with AI voices","b":[]},
+{"n":"CapCut AI","cat":"Video Generation","url":"https://capcut.com","desc":"Video editor with AI features","b":["hot", "mobile"]},
+{"n":"Descript","cat":"Video Generation","url":"https://descript.com","desc":"Edit video by editing transcript","b":["hot"]},
+{"n":"Stable Video","cat":"Video Generation","url":"https://stability.ai","desc":"Stability AI's video model","b":["opensource"]},
+{"n":"Haiper","cat":"Video Generation","url":"https://haiper.ai","desc":"AI video generation platform","b":["new"]},
+{"n":"Minimax Video","cat":"Video Generation","url":"https://minimaxi.com","desc":"Chinese AI video platform","b":["new"]},
+{"n":"Veo (Google)","cat":"Video Generation","url":"https://deepmind.google/veo","desc":"Google DeepMind's video AI","b":["new"]},
+{"n":"OpusClip","cat":"Video Generation","url":"https://opus.pro","desc":"AI video clipping for social","b":["hot"]},
+{"n":"Wisecut","cat":"Video Generation","url":"https://wisecut.video","desc":"AI automatic video editor","b":[]},
+{"n":"Suno","cat":"Audio & Music","url":"https://suno.ai","desc":"AI music generation from text","b":["hot"]},
+{"n":"Udio","cat":"Audio & Music","url":"https://udio.com","desc":"AI music creation with lyrics","b":["hot"]},
+{"n":"ElevenLabs","cat":"Audio & Music","url":"https://elevenlabs.io","desc":"Realistic AI voice generation","b":["hot", "api"]},
+{"n":"Murf AI","cat":"Audio & Music","url":"https://murf.ai","desc":"Professional AI voiceover studio","b":[]},
+{"n":"AIVA","cat":"Audio & Music","url":"https://aiva.ai","desc":"AI music composer for media","b":[]},
+{"n":"Soundraw","cat":"Audio & Music","url":"https://soundraw.io","desc":"AI royalty-free music generator","b":[]},
+{"n":"Beatoven","cat":"Audio & Music","url":"https://beatoven.ai","desc":"Create custom AI background music","b":[]},
+{"n":"Voicemod","cat":"Audio & Music","url":"https://voicemod.net","desc":"Real-time AI voice changer","b":["mobile"]},
+{"n":"Riffusion","cat":"Audio & Music","url":"https://riffusion.com","desc":"Stable Diffusion for music","b":["opensource"]},
+{"n":"Boomy","cat":"Audio & Music","url":"https://boomy.com","desc":"Create and release AI music","b":[]},
+{"n":"Adobe Podcast","cat":"Audio & Music","url":"https://podcast.adobe.com","desc":"AI audio enhancement","b":["hot"]},
+{"n":"Krisp","cat":"Audio & Music","url":"https://krisp.ai","desc":"AI noise cancellation for calls","b":["hot", "mobile"]},
+{"n":"Cleanvoice","cat":"Audio & Music","url":"https://cleanvoice.ai","desc":"Remove filler words from audio","b":[]},
+{"n":"Podcastle","cat":"Audio & Music","url":"https://podcastle.ai","desc":"AI podcast creation and editing","b":[]},
+{"n":"Speechify","cat":"Audio & Music","url":"https://speechify.com","desc":"Text to speech reader app","b":["mobile"]},
+{"n":"Resemble AI","cat":"Audio & Music","url":"https://resemble.ai","desc":"Clone your voice with AI","b":["api"]},
+{"n":"Play.ht","cat":"Audio & Music","url":"https://play.ht","desc":"Realistic AI voices for content","b":["api"]},
+{"n":"Coqui","cat":"Audio & Music","url":"https://coqui.ai","desc":"Open source TTS and voice cloning","b":["opensource"]},
+{"n":"Bark","cat":"Audio & Music","url":"https://github.com/suno-ai/bark","desc":"Open source text-to-audio","b":["opensource"]},
+{"n":"Jasper AI","cat":"Writing & Content","url":"https://jasper.ai","desc":"Enterprise AI writing assistant","b":["hot"]},
+{"n":"Copy.ai","cat":"Writing & Content","url":"https://copy.ai","desc":"AI copywriting for marketing","b":[]},
+{"n":"Writesonic","cat":"Writing & Content","url":"https://writesonic.com","desc":"AI writer for blogs and ads","b":[]},
+{"n":"Rytr","cat":"Writing & Content","url":"https://rytr.me","desc":"Affordable AI writing assistant","b":[]},
+{"n":"Grammarly","cat":"Writing & Content","url":"https://grammarly.com","desc":"AI writing and grammar checker","b":["hot", "mobile"]},
+{"n":"QuillBot","cat":"Writing & Content","url":"https://quillbot.com","desc":"AI paraphrasing and summarization","b":["hot"]},
+{"n":"Wordtune","cat":"Writing & Content","url":"https://wordtune.com","desc":"AI sentence rewriting tool","b":[]},
+{"n":"Sudowrite","cat":"Writing & Content","url":"https://sudowrite.com","desc":"AI writing tool for fiction","b":[]},
+{"n":"NovelAI","cat":"Writing & Content","url":"https://novelai.net","desc":"AI storytelling and novel writing","b":[]},
+{"n":"Anyword","cat":"Writing & Content","url":"https://anyword.com","desc":"AI copywriting with performance scores","b":[]},
+{"n":"Hypotenuse AI","cat":"Writing & Content","url":"https://hypotenuse.ai","desc":"AI product descriptions","b":[]},
+{"n":"Scalenut","cat":"Writing & Content","url":"https://scalenut.com","desc":"AI SEO content writer","b":[]},
+{"n":"Frase","cat":"Writing & Content","url":"https://frase.io","desc":"AI content brief and writing","b":[]},
+{"n":"Longshot AI","cat":"Writing & Content","url":"https://longshot.ai","desc":"Factual AI content for blogs","b":[]},
+{"n":"ProWritingAid","cat":"Writing & Content","url":"https://prowritingaid.com","desc":"Advanced grammar and style checker","b":[]},
+{"n":"Notion AI","cat":"Writing & Content","url":"https://notion.so/product/ai","desc":"AI writing inside Notion","b":["hot"]},
+{"n":"Gamma","cat":"Writing & Content","url":"https://gamma.app","desc":"AI presentation and doc creator","b":["hot", "new"]},
+{"n":"Tome","cat":"Writing & Content","url":"https://tome.app","desc":"AI storytelling and presentation","b":[]},
+{"n":"GitHub Copilot","cat":"Code & Development","url":"https://github.com/features/copilot","desc":"AI pair programmer","b":["hot", "api"]},
+{"n":"Cursor","cat":"Code & Development","url":"https://cursor.sh","desc":"AI-first code editor","b":["hot", "new"]},
+{"n":"Replit AI","cat":"Code & Development","url":"https://replit.com","desc":"AI coding in the browser","b":["hot"]},
+{"n":"Codeium","cat":"Code & Development","url":"https://codeium.com","desc":"Free AI code completion","b":[]},
+{"n":"Tabnine","cat":"Code & Development","url":"https://tabnine.com","desc":"AI code completion for any IDE","b":[]},
+{"n":"Amazon CodeWhisperer","cat":"Code & Development","url":"https://aws.amazon.com/codewhisperer","desc":"AWS AI code generator","b":[]},
+{"n":"Sourcegraph Cody","cat":"Code & Development","url":"https://sourcegraph.com/cody","desc":"AI coding assistant for codebases","b":[]},
+{"n":"Blackbox AI","cat":"Code & Development","url":"https://blackbox.ai","desc":"AI code search and generation","b":[]},
+{"n":"Devin","cat":"Code & Development","url":"https://cognition.ai","desc":"Autonomous AI software engineer","b":["new", "hot"]},
+{"n":"Aider","cat":"Code & Development","url":"https://aider.chat","desc":"AI pair programming in terminal","b":["opensource"]},
+{"n":"Continue.dev","cat":"Code & Development","url":"https://continue.dev","desc":"Open source AI code assistant","b":["opensource"]},
+{"n":"Windsurf","cat":"Code & Development","url":"https://codeium.com/windsurf","desc":"AI code editor by Codeium","b":["new", "hot"]},
+{"n":"Bolt.new","cat":"Code & Development","url":"https://bolt.new","desc":"Full-stack AI web app builder","b":["new", "hot"]},
+{"n":"v0.dev","cat":"Code & Development","url":"https://v0.dev","desc":"AI UI component generator by Vercel","b":["new", "hot"]},
+{"n":"Lovable","cat":"Code & Development","url":"https://lovable.dev","desc":"AI full-stack app builder","b":["new"]},
+{"n":"Warp","cat":"Code & Development","url":"https://warp.dev","desc":"AI-powered terminal","b":["new"]},
+{"n":"Canva","cat":"Design & Creative","url":"https://canva.com","desc":"World's most popular design platform","b":["hot", "mobile"]},
+{"n":"Adobe Express","cat":"Design & Creative","url":"https://adobe.com/express","desc":"Quick AI design tool by Adobe","b":[]},
+{"n":"Looka","cat":"Design & Creative","url":"https://looka.com","desc":"AI logo and brand identity maker","b":[]},
+{"n":"Brandmark","cat":"Design & Creative","url":"https://brandmark.io","desc":"AI logo design generator","b":[]},
+{"n":"Remove.bg","cat":"Design & Creative","url":"https://remove.bg","desc":"Instantly remove image backgrounds","b":["hot", "api"]},
+{"n":"Cleanup.pictures","cat":"Design & Creative","url":"https://cleanup.pictures","desc":"AI object removal from photos","b":[]},
+{"n":"Lensa AI","cat":"Design & Creative","url":"https://lensa.ai","desc":"AI photo editing and avatars","b":["mobile"]},
+{"n":"Fotor","cat":"Design & Creative","url":"https://fotor.com","desc":"AI photo editor and design tool","b":[]},
+{"n":"Pixlr","cat":"Design & Creative","url":"https://pixlr.com","desc":"AI-powered online photo editor","b":[]},
+{"n":"Uizard","cat":"Design & Creative","url":"https://uizard.io","desc":"AI UI design from screenshots","b":[]},
+{"n":"Galileo AI","cat":"Design & Creative","url":"https://usegalileo.ai","desc":"Generate UI designs from text","b":["new"]},
+{"n":"Framer AI","cat":"Design & Creative","url":"https://framer.com","desc":"AI website and design creation","b":[]},
+{"n":"Designs.ai","cat":"Design & Creative","url":"https://designs.ai","desc":"AI creative suite for brands","b":[]},
+{"n":"PicsArt","cat":"Design & Creative","url":"https://picsart.com","desc":"AI photo editor app","b":["mobile"]},
+{"n":"Vectorizer.ai","cat":"Design & Creative","url":"https://vectorizer.ai","desc":"Convert images to SVG vectors","b":[]},
+{"n":"Upscale.media","cat":"Design & Creative","url":"https://upscale.media","desc":"AI image upscaler","b":[]},
+{"n":"Topaz Labs","cat":"Design & Creative","url":"https://topazlabs.com","desc":"Professional AI image enhancement","b":[]},
+{"n":"Hotpot AI","cat":"Design & Creative","url":"https://hotpot.ai","desc":"AI tools for designers","b":[]},
+{"n":"Semrush","cat":"SEO & Marketing","url":"https://semrush.com","desc":"AI SEO and marketing suite","b":["hot"]},
+{"n":"Ahrefs","cat":"SEO & Marketing","url":"https://ahrefs.com","desc":"AI-powered SEO tools","b":["hot"]},
+{"n":"Surfer SEO","cat":"SEO & Marketing","url":"https://surferseo.com","desc":"AI content optimizer for SEO","b":[]},
+{"n":"MarketMuse","cat":"SEO & Marketing","url":"https://marketmuse.com","desc":"AI content strategy platform","b":[]},
+{"n":"Clearscope","cat":"SEO & Marketing","url":"https://clearscope.io","desc":"AI content optimization tool","b":[]},
+{"n":"Alli AI","cat":"SEO & Marketing","url":"https://alliai.com","desc":"Automated SEO optimization","b":[]},
+{"n":"RankIQ","cat":"SEO & Marketing","url":"https://rankiq.com","desc":"AI keyword research for bloggers","b":[]},
+{"n":"GrowthBar","cat":"SEO & Marketing","url":"https://growthbarseo.com","desc":"AI SEO tool for content teams","b":[]},
+{"n":"Mailchimp AI","cat":"SEO & Marketing","url":"https://mailchimp.com","desc":"AI email marketing platform","b":["hot"]},
+{"n":"HubSpot AI","cat":"SEO & Marketing","url":"https://hubspot.com","desc":"AI CRM and marketing platform","b":["hot"]},
+{"n":"AdCreative.ai","cat":"SEO & Marketing","url":"https://adcreative.ai","desc":"AI ad creative generator","b":["hot"]},
+{"n":"Notion AI","cat":"Productivity","url":"https://notion.so/product/ai","desc":"AI-powered workspace","b":["hot"]},
+{"n":"Mem.ai","cat":"Productivity","url":"https://mem.ai","desc":"AI-powered notes and memory","b":[]},
+{"n":"Otter.ai","cat":"Productivity","url":"https://otter.ai","desc":"AI meeting notes and transcription","b":["hot", "mobile"]},
+{"n":"Fireflies.ai","cat":"Productivity","url":"https://fireflies.ai","desc":"AI meeting recorder and search","b":["hot"]},
+{"n":"Fathom","cat":"Productivity","url":"https://fathom.video","desc":"Free AI meeting notes tool","b":[]},
+{"n":"Tldv","cat":"Productivity","url":"https://tldv.io","desc":"AI meeting recording and summaries","b":[]},
+{"n":"Reclaim AI","cat":"Productivity","url":"https://reclaim.ai","desc":"AI calendar scheduling","b":[]},
+{"n":"Clockwise","cat":"Productivity","url":"https://getclockwise.com","desc":"AI schedule optimizer","b":[]},
+{"n":"Motion","cat":"Productivity","url":"https://usemotion.com","desc":"AI task and calendar management","b":[]},
+{"n":"Taskade","cat":"Productivity","url":"https://taskade.com","desc":"AI task lists and collaboration","b":[]},
+{"n":"Zapier AI","cat":"Productivity","url":"https://zapier.com","desc":"AI workflow automation","b":["hot"]},
+{"n":"Make","cat":"Productivity","url":"https://make.com","desc":"Visual AI automation platform","b":[]},
+{"n":"n8n","cat":"Productivity","url":"https://n8n.io","desc":"Open source workflow automation","b":["opensource"]},
+{"n":"Bardeen","cat":"Productivity","url":"https://bardeen.ai","desc":"AI web automation and scraping","b":[]},
+{"n":"Magical","cat":"Productivity","url":"https://magical.com","desc":"AI text expansion and automation","b":[]},
+{"n":"Bearly","cat":"Productivity","url":"https://bearly.ai","desc":"AI reader for research papers","b":[]},
+{"n":"Elicit","cat":"Research & Analysis","url":"https://elicit.org","desc":"AI research assistant for papers","b":["hot"]},
+{"n":"Consensus","cat":"Research & Analysis","url":"https://consensus.app","desc":"AI scientific paper search","b":[]},
+{"n":"Semantic Scholar","cat":"Research & Analysis","url":"https://semanticscholar.org","desc":"AI-powered academic search","b":[]},
+{"n":"Scite","cat":"Research & Analysis","url":"https://scite.ai","desc":"Smart citation analysis tool","b":[]},
+{"n":"Research Rabbit","cat":"Research & Analysis","url":"https://researchrabbit.ai","desc":"AI literature discovery","b":[]},
+{"n":"Connected Papers","cat":"Research & Analysis","url":"https://connectedpapers.com","desc":"Visual paper discovery map","b":[]},
+{"n":"Explainpaper","cat":"Research & Analysis","url":"https://explainpaper.com","desc":"AI explains complex papers","b":[]},
+{"n":"Paperpal","cat":"Research & Analysis","url":"https://paperpal.com","desc":"AI academic writing assistant","b":[]},
+{"n":"Jenni AI","cat":"Research & Analysis","url":"https://jenni.ai","desc":"AI research writing tool","b":[]},
+{"n":"SciSpace","cat":"Research & Analysis","url":"https://typeset.io","desc":"AI research platform","b":[]},
+{"n":"Zotero","cat":"Research & Analysis","url":"https://zotero.org","desc":"AI-enhanced reference manager","b":["opensource"]},
+{"n":"Khan Academy Khanmigo","cat":"Education","url":"https://khanacademy.org","desc":"AI tutor by Khan Academy","b":["hot"]},
+{"n":"Duolingo AI","cat":"Education","url":"https://duolingo.com","desc":"AI language learning app","b":["hot", "mobile"]},
+{"n":"Socratic","cat":"Education","url":"https://socratic.org","desc":"AI homework help app","b":["mobile"]},
+{"n":"Photomath","cat":"Education","url":"https://photomath.com","desc":"AI math problem solver","b":["mobile"]},
+{"n":"Wolfram Alpha","cat":"Education","url":"https://wolframalpha.com","desc":"AI computational knowledge engine","b":[]},
+{"n":"Quizlet AI","cat":"Education","url":"https://quizlet.com","desc":"AI flashcards and study sets","b":["hot", "mobile"]},
+{"n":"Brainly","cat":"Education","url":"https://brainly.com","desc":"AI Q&A for students","b":["mobile"]},
+{"n":"Brilliant","cat":"Education","url":"https://brilliant.org","desc":"Interactive AI STEM learning","b":["mobile"]},
+{"n":"Tutor AI","cat":"Education","url":"https://tutorai.me","desc":"Personalized AI tutoring","b":[]},
+{"n":"Diffit","cat":"Education","url":"https://diffit.me","desc":"AI differentiated reading materials","b":[]},
+{"n":"DeepL","cat":"Translation","url":"https://deepl.com","desc":"World's best AI translation tool","b":["hot"]},
+{"n":"Google Translate","cat":"Translation","url":"https://translate.google.com","desc":"Free AI language translation","b":["hot", "mobile", "api"]},
+{"n":"Microsoft Translator","cat":"Translation","url":"https://translator.microsoft.com","desc":"AI translation by Microsoft","b":["mobile", "api"]},
+{"n":"Reverso","cat":"Translation","url":"https://reverso.net","desc":"AI translation with context","b":[]},
+{"n":"Papago","cat":"Translation","url":"https://papago.naver.com","desc":"AI translation for Asian languages","b":[]},
+{"n":"Systran","cat":"Translation","url":"https://systransoft.com","desc":"Enterprise AI translation","b":["api"]},
+{"n":"Weglot","cat":"Translation","url":"https://weglot.com","desc":"AI website translation tool","b":[]},
+{"n":"Lokalise AI","cat":"Translation","url":"https://lokalise.com","desc":"AI localization platform","b":[]},
+{"n":"Whisper","cat":"Voice & Speech","url":"https://openai.com/whisper","desc":"Open source speech recognition","b":["opensource", "api"]},
+{"n":"AssemblyAI","cat":"Voice & Speech","url":"https://assemblyai.com","desc":"AI transcription and audio intelligence","b":["api", "hot"]},
+{"n":"Deepgram","cat":"Voice & Speech","url":"https://deepgram.com","desc":"Real-time AI speech recognition","b":["api"]},
+{"n":"Rev AI","cat":"Voice & Speech","url":"https://rev.ai","desc":"AI transcription service","b":["api"]},
+{"n":"Sonix","cat":"Voice & Speech","url":"https://sonix.ai","desc":"Automated AI transcription","b":[]},
+{"n":"Notta","cat":"Voice & Speech","url":"https://notta.ai","desc":"AI meeting transcription","b":["mobile"]},
+{"n":"Speechmatics","cat":"Voice & Speech","url":"https://speechmatics.com","desc":"Enterprise speech AI","b":["api"]},
+{"n":"Adobe Photoshop AI","cat":"Image Editing","url":"https://adobe.com/photoshop","desc":"Generative Fill AI in Photoshop","b":["hot"]},
+{"n":"Luminar AI","cat":"Image Editing","url":"https://skylum.com","desc":"AI photo editing software","b":[]},
+{"n":"Remini","cat":"Image Editing","url":"https://remini.ai","desc":"AI photo enhancer and restorer","b":["mobile", "hot"]},
+{"n":"Upscayl","cat":"Image Editing","url":"https://upscayl.org","desc":"Free AI image upscaler","b":["opensource"]},
+{"n":"Inpaint","cat":"Image Editing","url":"https://theinpaint.com","desc":"AI object removal from photos","b":[]},
+{"n":"PhotoRoom","cat":"Image Editing","url":"https://photoroom.com","desc":"AI product photo editor","b":["mobile", "hot"]},
+{"n":"Claid.ai","cat":"Image Editing","url":"https://claid.ai","desc":"AI product image enhancement","b":["api"]},
+{"n":"Picwish","cat":"Image Editing","url":"https://picwish.com","desc":"AI photo enhancement tools","b":[]},
+{"n":"Let's Enhance","cat":"Image Editing","url":"https://letsenhance.io","desc":"AI photo resolution upscaler","b":[]},
+{"n":"Intercom AI","cat":"Customer Service","url":"https://intercom.com","desc":"AI customer messaging platform","b":["hot"]},
+{"n":"Zendesk AI","cat":"Customer Service","url":"https://zendesk.com","desc":"AI-powered support platform","b":["hot"]},
+{"n":"Freshdesk AI","cat":"Customer Service","url":"https://freshdesk.com","desc":"AI customer support software","b":[]},
+{"n":"Drift","cat":"Customer Service","url":"https://drift.com","desc":"AI conversational sales platform","b":[]},
+{"n":"Tidio","cat":"Customer Service","url":"https://tidio.com","desc":"AI chatbot for customer service","b":[]},
+{"n":"Landbot","cat":"Customer Service","url":"https://landbot.io","desc":"No-code AI chatbot builder","b":[]},
+{"n":"ManyChat","cat":"Customer Service","url":"https://manychat.com","desc":"AI chat marketing automation","b":[]},
+{"n":"Chatbase","cat":"Customer Service","url":"https://chatbase.co","desc":"Build chatbots on your documents","b":[]},
+{"n":"Voiceflow","cat":"Customer Service","url":"https://voiceflow.com","desc":"AI voice and chat agent builder","b":[]},
+{"n":"Botpress","cat":"Customer Service","url":"https://botpress.com","desc":"Open source AI chatbot","b":["opensource"]},
+{"n":"Rasa","cat":"Customer Service","url":"https://rasa.com","desc":"Open source conversational AI","b":["opensource", "api"]},
+{"n":"Ada","cat":"Customer Service","url":"https://ada.cx","desc":"AI customer service automation","b":[]},
+{"n":"AlphaSense","cat":"Finance & Business","url":"https://alpha-sense.com","desc":"AI market intelligence platform","b":[]},
+{"n":"Gong","cat":"Finance & Business","url":"https://gong.io","desc":"AI revenue intelligence","b":["hot"]},
+{"n":"Clari","cat":"Finance & Business","url":"https://clari.com","desc":"AI revenue operations platform","b":[]},
+{"n":"Outreach AI","cat":"Finance & Business","url":"https://outreach.io","desc":"AI sales engagement","b":[]},
+{"n":"Salesloft","cat":"Finance & Business","url":"https://salesloft.com","desc":"AI sales engagement platform","b":[]},
+{"n":"Docusign AI","cat":"Finance & Business","url":"https://docusign.com","desc":"AI contract signing and analysis","b":[]},
+{"n":"Intuit Assist","cat":"Finance & Business","url":"https://intuit.com","desc":"AI financial assistant for business","b":[]},
+{"n":"Booke.ai","cat":"Finance & Business","url":"https://booke.ai","desc":"AI bookkeeping automation","b":[]},
+{"n":"Buffer AI","cat":"Social Media","url":"https://buffer.com","desc":"AI social media scheduling","b":[]},
+{"n":"Hootsuite AI","cat":"Social Media","url":"https://hootsuite.com","desc":"AI social media management","b":[]},
+{"n":"Later AI","cat":"Social Media","url":"https://later.com","desc":"AI Instagram and social scheduler","b":[]},
+{"n":"Sprout Social","cat":"Social Media","url":"https://sproutsocial.com","desc":"AI social media management","b":[]},
+{"n":"Taplio","cat":"Social Media","url":"https://taplio.com","desc":"AI LinkedIn growth tool","b":[]},
+{"n":"Tweet Hunter","cat":"Social Media","url":"https://tweethunter.io","desc":"AI Twitter/X growth tool","b":[]},
+{"n":"FeedHive","cat":"Social Media","url":"https://feedhive.io","desc":"AI social media content scheduler","b":[]},
+{"n":"Predis.ai","cat":"Social Media","url":"https://predis.ai","desc":"AI social media post generator","b":[]},
+{"n":"ContentStudio","cat":"Social Media","url":"https://contentstudio.io","desc":"AI content marketing platform","b":[]},
+{"n":"Flick","cat":"Social Media","url":"https://flick.social","desc":"AI hashtag and caption generator","b":[]},
+{"n":"Spline AI","cat":"3D & AR/VR","url":"https://spline.design","desc":"3D design with AI features","b":["hot", "new"]},
+{"n":"Luma AI 3D","cat":"3D & AR/VR","url":"https://lumalabs.ai","desc":"AI 3D capture and NeRF generation","b":["hot"]},
+{"n":"Polycam","cat":"3D & AR/VR","url":"https://poly.cam","desc":"AI 3D scanning app","b":["mobile"]},
+{"n":"Meshy","cat":"3D & AR/VR","url":"https://meshy.ai","desc":"AI 3D model generation","b":["new"]},
+{"n":"Skybox AI","cat":"3D & AR/VR","url":"https://skybox.blockadelabs.com","desc":"AI 360 skybox generation","b":[]},
+{"n":"Shap-E","cat":"3D & AR/VR","url":"https://github.com/openai/shap-e","desc":"OpenAI 3D model generation","b":["opensource"]},
+{"n":"Masterpiece X","cat":"3D & AR/VR","url":"https://masterpiecex.com","desc":"AI 3D model creation in VR","b":[]},
+{"n":"Adobe Aero","cat":"3D & AR/VR","url":"https://adobe.com/products/aero","desc":"AI augmented reality creator","b":[]},
+{"n":"Bubble","cat":"No-Code & Automation","url":"https://bubble.io","desc":"AI no-code app builder","b":["hot"]},
+{"n":"Webflow AI","cat":"No-Code & Automation","url":"https://webflow.com","desc":"AI website builder and CMS","b":[]},
+{"n":"Softr","cat":"No-Code & Automation","url":"https://softr.io","desc":"Build apps from Airtable data","b":[]},
+{"n":"Glide","cat":"No-Code & Automation","url":"https://glideapps.com","desc":"Turn spreadsheets into apps","b":[]},
+{"n":"Adalo","cat":"No-Code & Automation","url":"https://adalo.com","desc":"No-code mobile app creator","b":[]},
+{"n":"Pabbly Connect","cat":"No-Code & Automation","url":"https://pabbly.com/connect","desc":"Affordable automation platform","b":[]},
+{"n":"Activepieces","cat":"No-Code & Automation","url":"https://activepieces.com","desc":"Open source automation","b":["opensource"]},
+{"n":"Flowise","cat":"No-Code & Automation","url":"https://flowiseai.com","desc":"Open source LLM orchestration","b":["opensource"]},
+{"n":"LangFlow","cat":"No-Code & Automation","url":"https://langflow.org","desc":"Visual LangChain builder","b":["opensource"]},
+{"n":"Retool","cat":"No-Code & Automation","url":"https://retool.com","desc":"Build internal tools with AI","b":[]},
+{"n":"Appsmith","cat":"No-Code & Automation","url":"https://appsmith.com","desc":"Open source internal tool builder","b":["opensource"]},
+{"n":"AutoGPT","cat":"AI Agents","url":"https://autogpt.net","desc":"Autonomous GPT-4 AI agent","b":["opensource", "hot"]},
+{"n":"AgentGPT","cat":"AI Agents","url":"https://agentgpt.reworkd.ai","desc":"Autonomous AI agents in browser","b":["opensource"]},
+{"n":"BabyAGI","cat":"AI Agents","url":"https://github.com/yoheinakajima/babyagi","desc":"Task-driven AI agent","b":["opensource"]},
+{"n":"SuperAGI","cat":"AI Agents","url":"https://superagi.com","desc":"Open source autonomous AI agent","b":["opensource"]},
+{"n":"CrewAI","cat":"AI Agents","url":"https://crewai.com","desc":"Multi-agent AI orchestration","b":["opensource", "new"]},
+{"n":"LangChain","cat":"AI Agents","url":"https://langchain.com","desc":"Framework for LLM applications","b":["opensource", "api"]},
+{"n":"LlamaIndex","cat":"AI Agents","url":"https://llamaindex.ai","desc":"Data framework for LLM apps","b":["opensource", "api"]},
+{"n":"MemGPT","cat":"AI Agents","url":"https://memgpt.ai","desc":"AI agents with long-term memory","b":["opensource"]},
+{"n":"MetaGPT","cat":"AI Agents","url":"https://metagpt.com","desc":"Multi-agent software company AI","b":["opensource"]},
+{"n":"Open Interpreter","cat":"AI Agents","url":"https://openinterpreter.com","desc":"AI code execution agent","b":["opensource"]},
+{"n":"GPT-Engineer","cat":"AI Agents","url":"https://gptengineer.app","desc":"AI that builds apps from spec","b":["opensource"]},
+{"n":"Dify","cat":"AI Agents","url":"https://dify.ai","desc":"Open source LLM app platform","b":["opensource", "new"]},
+{"n":"Tableau AI","cat":"Data & Analytics","url":"https://tableau.com","desc":"AI data visualization platform","b":["hot"]},
+{"n":"Power BI AI","cat":"Data & Analytics","url":"https://powerbi.microsoft.com","desc":"Microsoft AI analytics","b":["hot"]},
+{"n":"DataRobot","cat":"Data & Analytics","url":"https://datarobot.com","desc":"Automated machine learning","b":[]},
+{"n":"H2O.ai","cat":"Data & Analytics","url":"https://h2o.ai","desc":"Open source AI and AutoML","b":["opensource"]},
+{"n":"Obviously AI","cat":"Data & Analytics","url":"https://obviously.ai","desc":"No-code AI predictions","b":[]},
+{"n":"Akkio","cat":"Data & Analytics","url":"https://akkio.com","desc":"AI analytics for agencies","b":[]},
+{"n":"Julius AI","cat":"Data & Analytics","url":"https://julius.ai","desc":"AI data analysis chatbot","b":["new"]},
+{"n":"Deepnote","cat":"Data & Analytics","url":"https://deepnote.com","desc":"Collaborative data science notebooks","b":[]},
+{"n":"Hex","cat":"Data & Analytics","url":"https://hex.tech","desc":"AI data workspace for teams","b":[]},
+{"n":"Superhuman AI","cat":"Email","url":"https://superhuman.com","desc":"Fastest AI email experience","b":["hot"]},
+{"n":"Shortwave","cat":"Email","url":"https://shortwave.com","desc":"AI email client with summaries","b":[]},
+{"n":"SaneBox","cat":"Email","url":"https://sanebox.com","desc":"AI email filtering and management","b":[]},
+{"n":"Lavender","cat":"Email","url":"https://lavender.ai","desc":"AI email writing coach for sales","b":[]},
+{"n":"Flowrite","cat":"Email","url":"https://flowrite.com","desc":"AI email writing tool","b":[]},
+{"n":"Ellie AI","cat":"Email","url":"https://tryellie.com","desc":"AI email reply assistant","b":[]},
+{"n":"Instantly AI","cat":"Email","url":"https://instantly.ai","desc":"AI cold email outreach","b":["hot"]},
+{"n":"Lemlist","cat":"Email","url":"https://lemlist.com","desc":"AI personalized email campaigns","b":[]},
+{"n":"Apollo AI","cat":"Email","url":"https://apollo.io","desc":"AI sales intelligence and email","b":["hot"]},
+{"n":"Gamma AI","cat":"Presentation","url":"https://gamma.app","desc":"AI presentation and doc creator","b":["hot", "new"]},
+{"n":"Beautiful.ai","cat":"Presentation","url":"https://beautiful.ai","desc":"AI auto-design presentations","b":[]},
+{"n":"Decktopus","cat":"Presentation","url":"https://decktopus.com","desc":"AI presentation maker","b":[]},
+{"n":"SlidesAI","cat":"Presentation","url":"https://slidesai.io","desc":"AI slides from text","b":[]},
+{"n":"MagicSlides","cat":"Presentation","url":"https://magicslides.app","desc":"ChatGPT for presentations","b":[]},
+{"n":"Canva Presentations","cat":"Presentation","url":"https://canva.com/presentations","desc":"AI presentation design","b":[]},
+{"n":"Pitch","cat":"Presentation","url":"https://pitch.com","desc":"AI collaborative presentations","b":[]},
+{"n":"Darktrace","cat":"Security","url":"https://darktrace.com","desc":"AI cybersecurity platform","b":["hot"]},
+{"n":"CrowdStrike AI","cat":"Security","url":"https://crowdstrike.com","desc":"AI endpoint security","b":["hot"]},
+{"n":"SentinelOne","cat":"Security","url":"https://sentinelone.com","desc":"AI-powered security platform","b":[]},
+{"n":"Vectra AI","cat":"Security","url":"https://vectra.ai","desc":"AI threat detection","b":[]},
+{"n":"Tessian","cat":"Security","url":"https://tessian.com","desc":"AI email security","b":[]},
+{"n":"Abnormal Security","cat":"Security","url":"https://abnormalsecurity.com","desc":"AI email attack protection","b":[]},
+{"n":"Snyk AI","cat":"Security","url":"https://snyk.io","desc":"AI code security scanner","b":["api"]},
+{"n":"Ada Health","cat":"Healthcare & Wellness","url":"https://ada.com","desc":"AI symptom checker app","b":["mobile"]},
+{"n":"Babylon Health","cat":"Healthcare & Wellness","url":"https://babylonhealth.com","desc":"AI healthcare platform","b":["mobile"]},
+{"n":"K Health","cat":"Healthcare & Wellness","url":"https://khealth.com","desc":"AI primary care app","b":["mobile"]},
+{"n":"Wysa","cat":"Healthcare & Wellness","url":"https://wysa.io","desc":"AI mental health chatbot","b":["mobile"]},
+{"n":"Woebot","cat":"Healthcare & Wellness","url":"https://woebot.io","desc":"AI CBT mental health tool","b":["mobile"]},
+{"n":"Youper","cat":"Healthcare & Wellness","url":"https://youper.ai","desc":"AI emotional health assistant","b":["mobile"]},
+{"n":"Calm AI","cat":"Healthcare & Wellness","url":"https://calm.com","desc":"AI meditation and sleep","b":["mobile"]},
+{"n":"Headspace AI","cat":"Healthcare & Wellness","url":"https://headspace.com","desc":"AI mindfulness and meditation","b":["mobile"]},
+{"n":"Noom","cat":"Healthcare & Wellness","url":"https://noom.com","desc":"AI weight loss program","b":["mobile"]},
+{"n":"PathAI","cat":"Healthcare & Wellness","url":"https://pathai.com","desc":"AI pathology diagnostics","b":[]},
+{"n":"Harvey AI","cat":"Legal & Compliance","url":"https://harvey.ai","desc":"AI for legal professionals","b":["hot", "new"]},
+{"n":"Clio AI","cat":"Legal & Compliance","url":"https://clio.com","desc":"AI law practice management","b":[]},
+{"n":"Ironclad","cat":"Legal & Compliance","url":"https://ironcladapp.com","desc":"AI contract management","b":[]},
+{"n":"LexisNexis AI","cat":"Legal & Compliance","url":"https://lexisnexis.com","desc":"AI legal research","b":[]},
+{"n":"Kira Systems","cat":"Legal & Compliance","url":"https://kirasystems.com","desc":"AI contract analysis","b":[]},
+{"n":"Luminance","cat":"Legal & Compliance","url":"https://luminance.com","desc":"AI legal document review","b":[]},
+{"n":"Spellbook","cat":"Legal & Compliance","url":"https://spellbook.legal","desc":"AI contract drafting","b":[]},
+{"n":"Workday AI","cat":"HR & Recruiting","url":"https://workday.com","desc":"AI HR management platform","b":["hot"]},
+{"n":"Greenhouse AI","cat":"HR & Recruiting","url":"https://greenhouse.io","desc":"AI hiring and recruitment","b":[]},
+{"n":"HireVue","cat":"HR & Recruiting","url":"https://hirevue.com","desc":"AI video interviewing platform","b":[]},
+{"n":"Eightfold AI","cat":"HR & Recruiting","url":"https://eightfold.ai","desc":"AI talent intelligence platform","b":[]},
+{"n":"Textio","cat":"HR & Recruiting","url":"https://textio.com","desc":"AI inclusive job description writer","b":[]},
+{"n":"Paradox AI","cat":"HR & Recruiting","url":"https://paradox.ai","desc":"AI HR chatbot","b":[]},
+{"n":"Lattice AI","cat":"HR & Recruiting","url":"https://lattice.com","desc":"AI performance management","b":[]},
+{"n":"Rippling AI","cat":"HR & Recruiting","url":"https://rippling.com","desc":"AI workforce management","b":[]},
+{"n":"Shopify Magic","cat":"E-Commerce","url":"https://shopify.com/magic","desc":"AI tools built into Shopify","b":["hot"]},
+{"n":"Nosto","cat":"E-Commerce","url":"https://nosto.com","desc":"AI personalization for e-commerce","b":[]},
+{"n":"Algolia AI","cat":"E-Commerce","url":"https://algolia.com","desc":"AI search for e-commerce","b":["api"]},
+{"n":"Describely","cat":"E-Commerce","url":"https://describely.ai","desc":"AI product descriptions","b":[]},
+{"n":"VModel AI","cat":"E-Commerce","url":"https://vmodel.ai","desc":"AI fashion model photos","b":["new"]},
+{"n":"Recombee","cat":"E-Commerce","url":"https://recombee.com","desc":"AI recommendation engine","b":["api"]},
+{"n":"Klevu","cat":"E-Commerce","url":"https://klevu.com","desc":"AI search and discovery","b":[]},
+{"n":"Zillow AI","cat":"Real Estate","url":"https://zillow.com","desc":"AI home valuation and search","b":[]},
+{"n":"Redfin AI","cat":"Real Estate","url":"https://redfin.com","desc":"AI real estate platform","b":[]},
+{"n":"Reonomy","cat":"Real Estate","url":"https://reonomy.com","desc":"AI commercial real estate data","b":[]},
+{"n":"HouseCanary","cat":"Real Estate","url":"https://housecanary.com","desc":"AI property valuation","b":[]},
+{"n":"Restb.ai","cat":"Real Estate","url":"https://restb.ai","desc":"AI computer vision for real estate","b":[]},
+{"n":"Structurely","cat":"Real Estate","url":"https://structurely.com","desc":"AI real estate chatbot","b":[]},
+{"n":"AI Dungeon","cat":"Gaming & Fun","url":"https://aidungeon.io","desc":"AI text adventure game","b":["mobile"]},
+{"n":"InWorld AI","cat":"Gaming & Fun","url":"https://inworld.ai","desc":"AI NPCs for games","b":[]},
+{"n":"Scenario","cat":"Gaming & Fun","url":"https://scenario.gg","desc":"AI game asset generator","b":[]},
+{"n":"Rosebud AI","cat":"Gaming & Fun","url":"https://rosebud.ai","desc":"AI game creation platform","b":[]},
+{"n":"Chess.com AI","cat":"Gaming & Fun","url":"https://chess.com","desc":"AI chess opponent and analysis","b":[]},
+{"n":"Ludo.ai","cat":"Gaming & Fun","url":"https://ludo.ai","desc":"AI game ideation platform","b":[]},
+{"n":"AI Town","cat":"Gaming & Fun","url":"https://github.com/a16z-infra/ai-town","desc":"AI virtual world simulation","b":["opensource"]}
+];
+const catMeta = {  "Chatbots & Assistants":{"icon":"🤖","color":"#7c3aed"}
+,  "Image Generation":{"icon":"🎨","color":"#ec4899"}
+,  "Video Generation":{"icon":"🎬","color":"#ef4444"}
+,  "Audio & Music":{"icon":"🎵","color":"#f59e0b"}
+,  "Writing & Content":{"icon":"✍️","color":"#10b981"}
+,  "Code & Development":{"icon":"💻","color":"#3b82f6"}
+,  "Design & Creative":{"icon":"🖌️","color":"#8b5cf6"}
+,  "SEO & Marketing":{"icon":"📈","color":"#f97316"}
+,  "Productivity":{"icon":"⚡","color":"#eab308"}
+,  "Research & Analysis":{"icon":"🔬","color":"#06b6d4"}
+,  "Education":{"icon":"📚","color":"#84cc16"}
+,  "Translation":{"icon":"🌐","color":"#0ea5e9"}
+,  "Voice & Speech":{"icon":"🎙️","color":"#a78bfa"}
+,  "Image Editing":{"icon":"🖼️","color":"#fb923c"}
+,  "Customer Service":{"icon":"💬","color":"#34d399"}
+,  "Finance & Business":{"icon":"💹","color":"#facc15"}
+,  "Social Media":{"icon":"📱","color":"#f472b6"}
+,  "3D & AR/VR":{"icon":"🥽","color":"#818cf8"}
+,  "No-Code & Automation":{"icon":"⚙️","color":"#e879f9"}
+,  "AI Agents":{"icon":"🕵️","color":"#2dd4bf"}
+,  "Data & Analytics":{"icon":"📊","color":"#60a5fa"}
+,  "Email":{"icon":"📧","color":"#a3e635"}
+,  "Presentation":{"icon":"🎯","color":"#fb7185"}
+,  "Security":{"icon":"🔐","color":"#94a3b8"}
+,  "Healthcare & Wellness":{"icon":"❤️","color":"#f87171"}
+,  "Legal & Compliance":{"icon":"⚖️","color":"#c084fc"}
+,  "HR & Recruiting":{"icon":"👥","color":"#4ade80"}
+,  "E-Commerce":{"icon":"🛒","color":"#fbbf24"}
+,  "Real Estate":{"icon":"🏡","color":"#6ee7b7"}
+,  "Gaming & Fun":{"icon":"🎮","color":"#f9a8d4"}
+};
+const categories = ["Chatbots & Assistants", "Image Generation", "Video Generation", "Audio & Music", "Writing & Content", "Code & Development", "Design & Creative", "SEO & Marketing", "Productivity", "Research & Analysis", "Education", "Translation", "Voice & Speech", "Image Editing", "Customer Service", "Finance & Business", "Social Media", "3D & AR/VR", "No-Code & Automation", "AI Agents", "Data & Analytics", "Email", "Presentation", "Security", "Healthcare & Wellness", "Legal & Compliance", "HR & Recruiting", "E-Commerce", "Real Estate", "Gaming & Fun"];
+const trendingNames = ["ChatGPT", "Claude", "Google Gemini", "Perplexity AI", "Microsoft Copilot", "Poe", "Character.AI", "DeepSeek", "Midjourney", "DALL-E 3", "Adobe Firefly", "Leonardo AI"];
+const totdTools = [{"name": "ChatGPT", "url": "https://chat.openai.com", "why": "The world's most versatile AI chatbot \u2014 write, code, analyze, create.", "cat": "Chatbots & Assistants"}, {"name": "Midjourney", "url": "https://midjourney.com", "why": "The gold standard for AI art generation with stunning quality.", "cat": "Image Generation"}, {"name": "ElevenLabs", "url": "https://elevenlabs.io", "why": "Most realistic AI voice cloning and text-to-speech available.", "cat": "Audio & Music"}, {"name": "RunwayML", "url": "https://runwayml.com", "why": "Professional AI video creation and editing tools for creators.", "cat": "Video Generation"}, {"name": "Cursor", "url": "https://cursor.sh", "why": "The AI-first code editor revolutionizing software development.", "cat": "Code & Development"}, {"name": "Perplexity AI", "url": "https://perplexity.ai", "why": "AI-powered research with real-time web access and citations.", "cat": "Research & Analysis"}, {"name": "Suno", "url": "https://suno.ai", "why": "Generate full songs with vocals and music from text prompts.", "cat": "Audio & Music"}];
+const workflows = [{"title": "\ud83c\udfac YouTube Video Pipeline", "steps": ["Write script with ChatGPT", "Generate thumbnail with Midjourney", "Create voiceover with ElevenLabs", "Edit with CapCut AI", "Optimize title/tags with VidIQ", "Schedule with Hootsuite AI"]}, {"title": "\ud83c\udf10 Build a Website", "steps": ["Plan with Claude AI", "Design mockup with Framer AI", "Generate copy with Jasper", "Create images with Adobe Firefly", "Build with Bolt.new", "SEO optimize with Surfer SEO"]}, {"title": "\ud83c\udf99\ufe0f Podcast Production", "steps": ["Research topics with Perplexity", "Write outline with Notion AI", "Record and clean with Krisp", "Transcribe with Whisper", "Edit with Adobe Podcast", "Distribute with Podcastle"]}, {"title": "\u270d\ufe0f Blog Post Writing", "steps": ["Keyword research with Ahrefs", "Outline with Frase", "Draft with Writesonic", "Edit with Grammarly", "Add images with Canva AI", "Publish and track with Semrush"]}, {"title": "\ud83d\udcf1 Social Media Content", "steps": ["Generate ideas with Claude", "Create visuals with Canva", "Write captions with Copy.ai", "Schedule with Buffer AI", "Analyze with Sprout Social", "Repurpose with OpusClip"]}, {"title": "\ud83e\udd16 Build AI Chatbot", "steps": ["Design flow with Voiceflow", "Train on docs with Chatbase", "Add personality with Character.AI", "Integrate with Botpress", "Test with AgentGPT", "Deploy with Bubble"]}, {"title": "\ud83c\udfa8 Brand Identity", "steps": ["Generate logo with Looka", "Create color palette with Designs.ai", "Design assets with Canva", "Write brand voice with Jasper", "Build website with Framer AI", "Create ads with AdCreative.ai"]}, {"title": "\ud83d\udcca Data Analysis", "steps": ["Collect data with automated scrapers", "Clean with Julius AI", "Visualize with Tableau AI", "Analyze patterns with DataRobot", "Create report with Gamma", "Share insights with Notion AI"]}];
+const prompts = [{"cat": "Productivity", "icon": "\u26a1", "items": ["Write a professional email to [person] about [topic] in a [formal/friendly] tone", "Create a weekly schedule optimizing for deep work and meetings", "Summarize this document in 5 bullet points: [paste text]", "Create a project plan for [project] with timeline and milestones", "Write meeting notes from this transcript: [paste]"]}, {"cat": "Content Creation", "icon": "\u270d\ufe0f", "items": ["Write a viral Twitter thread about [topic] with 10 tweets", "Create a YouTube video script for [topic] aimed at [audience]", "Write 5 click-worthy headlines for an article about [topic]", "Create an Instagram caption with hashtags for [photo description]", "Write a blog post introduction that hooks readers immediately about [topic]"]}, {"cat": "Coding", "icon": "\ud83d\udcbb", "items": ["Review this code and suggest improvements: [paste code]", "Write a [language] function that [does what]", "Explain this error and how to fix it: [paste error]", "Convert this [language] code to [language]: [paste]", "Write unit tests for this function: [paste code]"]}, {"cat": "Business", "icon": "\ud83d\udcb9", "items": ["Create a SWOT analysis for [company/product]", "Write a cold outreach email to [prospect type] about [offer]", "Generate 10 business ideas for [niche] market", "Create a pricing strategy for [product] targeting [customer]", "Write an executive summary for [business plan topic]"]}, {"cat": "Image Prompts", "icon": "\ud83c\udfa8", "items": ["Photorealistic portrait of [subject], studio lighting, 8k, professional photography", "[Style] artwork of [scene], vibrant colors, detailed, trending on artstation", "Logo for [brand] company, minimalist, vector style, [colors]", "Product photo of [item] on white background, commercial photography", "Cinematic landscape of [location], golden hour, dramatic clouds, hyperrealistic"]}, {"cat": "Research", "icon": "\ud83d\udd2c", "items": ["Explain [complex topic] like I'm 5 years old", "What are the pros and cons of [topic]?", "Compare [A] vs [B]: which is better for [use case]?", "Summarize the latest research on [topic]", "What are 10 things most people don't know about [topic]?"]}, {"cat": "Personal", "icon": "\ud83c\udf1f", "items": ["Help me write my resume for a [job] position with [years] experience", "Create a meal plan for the week: [dietary preferences]", "Write a cover letter for [job] at [company]", "Help me prepare for an interview at [company] for [role]", "Create a workout plan for [goal] with [frequency] sessions per week"]}];
+const glossary = [["LLM", "Large Language Model \u2014 an AI trained on massive text datasets to understand and generate human language."], ["Prompt", "The text input you give to an AI to guide its response."], ["Tokens", "The units of text AI models process \u2014 roughly 4 characters or 3/4 of a word."], ["Fine-tuning", "Training an existing AI model on specialized data to improve performance on specific tasks."], ["RAG", "Retrieval-Augmented Generation \u2014 AI that searches documents before answering to provide accurate, sourced responses."], ["Agent", "An AI that can autonomously take actions, use tools, and complete multi-step tasks."], ["Hallucination", "When an AI confidently states false information as fact."], ["Context Window", "The maximum amount of text an AI can process at once in a single conversation."], ["Embeddings", "Mathematical representations of text that allow AI to understand semantic meaning."], ["Multimodal", "AI that can process multiple types of input \u2014 text, images, audio, and video."], ["Inference", "The process of running an AI model to generate outputs from inputs."], ["Open Source", "AI models whose code and weights are publicly available for anyone to use and modify."], ["API", "Application Programming Interface \u2014 allows developers to integrate AI into their own apps."], ["Zero-shot", "AI performing a task it wasn't specifically trained for, using only instructions."], ["Chain-of-Thought", "Prompting technique where AI explains its reasoning step-by-step for better accuracy."], ["Diffusion Model", "AI image generation technique that learns to reverse a noise process to create images."], ["Transformer", "The neural network architecture behind most modern LLMs, including GPT and Claude."], ["Temperature", "A setting that controls AI creativity/randomness \u2014 higher = more creative, lower = more focused."], ["Vector Database", "Specialized database that stores embeddings for fast semantic search in AI apps."], ["RLHF", "Reinforcement Learning from Human Feedback \u2014 how AI models are trained to be helpful and safe."]];
+const quizData = [{"q": "What's your main goal?", "opts": ["Create content", "Write code", "Do research", "Automate work", "Have conversations"], "cats": [["Image Generation", "Video Generation", "Audio & Music", "Writing & Content"], ["Code & Development", "AI Agents", "No-Code & Automation"], ["Research & Analysis", "Education", "Data & Analytics"], ["Productivity", "No-Code & Automation", "AI Agents"], ["Chatbots & Assistants"]]}, {"q": "What type of content do you create?", "opts": ["Videos & podcasts", "Blog posts & articles", "Social media", "Business docs", "Images & art"], "cats": [["Video Generation", "Audio & Music", "Voice & Speech"], ["Writing & Content", "SEO & Marketing"], ["Social Media", "Design & Creative"], ["Productivity", "Presentation", "Email"], ["Image Generation", "Design & Creative", "Image Editing"]]}, {"q": "What's your experience level?", "opts": ["Complete beginner", "Somewhat familiar", "Comfortable with tech", "Developer/Technical", "Expert"], "cats": [["Chatbots & Assistants", "Writing & Content"], ["Productivity", "Design & Creative"], ["No-Code & Automation", "SEO & Marketing"], ["Code & Development", "AI Agents", "Data & Analytics"], ["AI Agents", "Code & Development", "Research & Analysis"]]}, {"q": "What industry are you in?", "opts": ["Marketing", "Healthcare", "Education", "Finance", "Creative/Media"], "cats": [["SEO & Marketing", "Social Media", "Writing & Content"], ["Healthcare & Wellness"], ["Education", "Research & Analysis"], ["Finance & Business", "Data & Analytics"], ["Design & Creative", "Video Generation", "Audio & Music"]]}, {"q": "What's your budget?", "opts": ["100% Free only", "Small budget OK", "Professional tools", "Enterprise", "Don't mind spending"], "cats": [["Chatbots & Assistants", "Image Generation", "Voice & Speech"], ["Writing & Content", "Productivity"], ["SEO & Marketing", "Video Generation"], ["Security", "Finance & Business", "HR & Recruiting"], ["Code & Development", "AI Agents"]]}];
+
+// UTILS
+function scrollTo(sel) { document.querySelector(sel)?.scrollIntoView({behavior:'smooth'}); }
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// PROGRESS BAR
+window.addEventListener('scroll', () => {
+  const pb = document.getElementById('progress-bar');
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  pb.style.width = pct + '%';
+  const btt = document.getElementById('btt');
+  btt.classList.toggle('visible', window.scrollY > 400);
+});
+
+// CANVAS STARS + SHOOTING STARS
+(function() {
+  const canvas = document.getElementById('space-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, stars = [], shooters = [];
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < 280; i++) {
+      stars.push({
+        x: Math.random() * W, y: Math.random() * H,
+        r: Math.random() * 1.8 + .2,
+        o: Math.random() * .7 + .1,
+        sp: Math.random() * .015 + .005,
+        phase: Math.random() * Math.PI * 2,
+        layer: Math.floor(Math.random() * 3)
+      });
+    }
+  }
+  function spawnShooter() {
+    if (Math.random() > 0.007) return;
+    shooters.push({ x: Math.random() * W * .6, y: Math.random() * H * .4, vx: 6 + Math.random() * 6, vy: 3 + Math.random() * 4, life: 1, tail: [] });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    // nebula
+    const ng = ctx.createRadialGradient(W*.5, H*.3, 0, W*.5, H*.3, H*.6);
+    ng.addColorStop(0, 'rgba(76,29,149,.04)');
+    ng.addColorStop(.5, 'rgba(124,58,237,.02)');
+    ng.addColorStop(1, 'transparent');
+    ctx.fillStyle = ng;
+    ctx.fillRect(0, 0, W, H);
+    // stars
+    const t = Date.now() * .001;
+    stars.forEach(s => {
+      const o = s.o * (.6 + .4 * Math.sin(t * s.sp * 10 + s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = s.layer === 0 ? `rgba(255,255,255,${o})` : s.layer === 1 ? `rgba(167,139,250,${o*.7})` : `rgba(236,72,153,${o*.4})`;
+      ctx.fill();
+    });
+    // shooting stars
+    shooters.forEach((s, i) => {
+      s.tail.push({x: s.x, y: s.y, o: s.life});
+      if (s.tail.length > 20) s.tail.shift();
+      s.x += s.vx; s.y += s.vy; s.life -= .03;
+      // draw tail
+      s.tail.forEach((p, j) => {
+        const alpha = (j / s.tail.length) * p.o * .8;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.2, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.fill();
+      });
+      if (s.life <= 0) shooters.splice(i, 1);
+    });
+    spawnShooter();
+    requestAnimationFrame(draw);
+  }
+  resize();
+  initStars();
+  draw();
+  window.addEventListener('resize', () => { resize(); initStars(); });
+})();
+
+// PLANET PARALLAX
+document.addEventListener('mousemove', e => {
+  const p = document.getElementById('planet-sphere');
+  if (!p) return;
+  const dx = (e.clientX / window.innerWidth - .5) * 18;
+  const dy = (e.clientY / window.innerHeight - .5) * 12;
+  p.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+});
+
+// TOOL OF THE DAY
+(function() {
+  const day = Math.floor(Date.now() / 86400000);
+  const t = totdTools[day % totdTools.length];
+  document.getElementById('totd-name').textContent = t.name;
+  document.getElementById('totd-cat').textContent = t.cat;
+  document.getElementById('totd-why').textContent = t.why;
+  const lnk = document.getElementById('totd-link');
+  lnk.href = t.url;
+})();
+
+// TRENDING
+(function() {
+  const grid = document.getElementById('trending-grid');
+  trendingNames.slice(0, 12).forEach((name, i) => {
+    const tool = tools.find(t => t.n === name);
+    if (!tool) return;
+    const card = document.createElement('a');
+    card.className = 'trending-card';
+    card.href = tool.url;
+    card.target = '_blank';
+    card.innerHTML = `
+      <div class="trending-rank ${i < 3 ? 'top3' : ''}">#${i+1}</div>
+      <div class="trending-name">${tool.n}</div>
+      <div class="trending-cat">${tool.cat}</div>
+    `;
+    grid.appendChild(card);
+  });
+})();
+
+// QUIZ
+let quizStep = 0;
+let quizAnswers = [];
+function initQuiz() {
+  quizStep = 0; quizAnswers = [];
+  renderQuiz();
+}
+function renderQuizProgress() {
+  const pg = document.getElementById('quiz-progress');
+  pg.innerHTML = quizData.map((_, i) => `<div class="quiz-dot ${i <= quizStep ? 'done' : ''}"></div>`).join('');
+}
+function renderQuiz() {
+  renderQuizProgress();
+  const qd = document.getElementById('quiz-content');
+  if (quizStep >= quizData.length) {
+    // Show results
+    const cats = {};
+    quizAnswers.forEach(a => {
+      a.forEach(c => { cats[c] = (cats[c] || 0) + 1; });
+    });
+    const sorted = Object.entries(cats).sort((a, b) => b[1] - a[1]).slice(0, 3).map(e => e[0]);
+    qd.innerHTML = `<div class="quiz-result">
+      <h3>🎯 Your Perfect AI Categories</h3>
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Based on your answers, we recommend:</p>
+      <div class="quiz-cats">${sorted.map(c => `<button class="quiz-cat-btn" onclick="filterByCategory('${c}')">${catMeta[c]?.icon} ${c}</button>`).join('')}</div>
+      <button class="quiz-restart" onclick="initQuiz()">↺ Take Again</button>
+    </div>`;
+    return;
+  }
+  const q = quizData[quizStep];
+  qd.innerHTML = `<div class="quiz-q">Q${quizStep+1}/5: ${q.q}</div>
+    <div class="quiz-opts">${q.opts.map((o, i) => `<button class="quiz-opt" onclick="quizAnswer(${i})">${o}</button>`).join('')}</div>`;
+}
+function quizAnswer(i) {
+  quizAnswers.push(quizData[quizStep].cats[i]);
+  quizStep++;
+  renderQuiz();
+}
+function filterByCategory(cat) {
+  activeFilter = cat;
+  document.getElementById('search').value = '';
+  searchQuery = '';
+  renderGrid();
+  scrollTo('#tools');
+}
+initQuiz();
+
+// FILTER BUTTONS
+let activeFilter = 'All';
+let searchQuery = '';
+function renderFilters() {
+  const wrap = document.getElementById('filter-wrap');
+  const all = ['All', ...categories];
+  wrap.innerHTML = all.map(c => {
+    const meta = catMeta[c] || {};
+    const icon = meta.icon || '🔸';
+    return `<button class="filter-btn ${c === activeFilter ? 'active' : ''}" onclick="setFilter('${c}')">${icon} ${c}</button>`;
+  }).join('');
+}
+function setFilter(c) {
+  activeFilter = c;
+  renderFilters();
+  renderGrid();
+}
+renderFilters();
+
+// TOOLS GRID
+function renderGrid() {
+  searchQuery = document.getElementById('search').value.toLowerCase();
+  const filtered = tools.filter(t => {
+    const matchCat = activeFilter === 'All' || t.cat === activeFilter;
+    const matchQ = !searchQuery || t.n.toLowerCase().includes(searchQuery) || t.desc.toLowerCase().includes(searchQuery) || t.cat.toLowerCase().includes(searchQuery);
+    return matchCat && matchQ;
+  });
+  document.getElementById('tools-count').textContent = `Showing ${filtered.length} of ${tools.length} tools`;
+  const grid = document.getElementById('tools-grid');
+  grid.innerHTML = filtered.map(t => {
+    const meta = catMeta[t.cat] || {icon: '🔸', color: '#7c3aed'};
+    const badges = (t.b || []).map(b => `<span class="badge badge-${b}">${b === 'hot' ? '🔥 Hot' : b === 'new' ? '🆕 New' : b === 'opensource' ? '⚡ Open Source' : b === 'api' ? '🔌 API' : b === 'mobile' ? '📱 Mobile' : b}</span>`).join('');
+    return `<a class="tool-card" href="${t.url}" target="_blank" rel="noopener">
+      <div class="card-head">
+        <div class="card-icon" style="background:${meta.color}22;color:${meta.color}">${meta.icon}</div>
+        <div>
+          <div class="card-name">${t.n}</div>
+          <div class="card-badges">${badges}<span class="free-badge">✓ FREE</span></div>
+        </div>
+      </div>
+      <div class="card-cat">${meta.icon} ${t.cat}</div>
+      <div class="card-desc">${t.desc}</div>
+    </a>`;
+  }).join('');
+}
+renderGrid();
+
+// COMPARE
+(function() {
+  const s1 = document.getElementById('cmp1');
+  const s2 = document.getElementById('cmp2');
+  tools.forEach(t => {
+    [s1, s2].forEach(s => {
+      const o = document.createElement('option');
+      o.value = t.n; o.textContent = t.n;
+      s.appendChild(o);
+    });
+  });
+})();
+function renderCompare() {
+  const n1 = document.getElementById('cmp1').value;
+  const n2 = document.getElementById('cmp2').value;
+  const div = document.getElementById('cmp-table');
+  if (!n1 || !n2) { div.innerHTML = ''; return; }
+  const t1 = tools.find(t => t.n === n1);
+  const t2 = tools.find(t => t.n === n2);
+  if (!t1 || !t2) return;
+  const rows = [
+    ['Category', t1.cat, t2.cat],
+    ['Free to Use', '<span class="yes">✓ Yes</span>', '<span class="yes">✓ Yes</span>'],
+    ['Has API', t1.b?.includes('api') ? '<span class="yes">✓ Yes</span>' : '<span class="no">✗ No</span>', t2.b?.includes('api') ? '<span class="yes">✓ Yes</span>' : '<span class="no">✗ No</span>'],
+    ['Open Source', t1.b?.includes('opensource') ? '<span class="yes">✓ Yes</span>' : '<span class="no">✗ No</span>', t2.b?.includes('opensource') ? '<span class="yes">✓ Yes</span>' : '<span class="no">✗ No</span>'],
+    ['Mobile App', t1.b?.includes('mobile') ? '<span class="yes">✓ Yes</span>' : '<span class="maybe">Maybe</span>', t2.b?.includes('mobile') ? '<span class="yes">✓ Yes</span>' : '<span class="maybe">Maybe</span>'],
+    ['Trending', t1.b?.includes('hot') ? '<span class="yes">🔥 Hot</span>' : '—', t2.b?.includes('hot') ? '<span class="yes">🔥 Hot</span>' : '—'],
+    ['New', t1.b?.includes('new') ? '<span class="yes">🆕 Yes</span>' : '—', t2.b?.includes('new') ? '<span class="yes">🆕 Yes</span>' : '—'],
+    ['Description', t1.desc, t2.desc],
+    ['Link', `<a href="${t1.url}" target="_blank" style="color:var(--accent)">Visit →</a>`, `<a href="${t2.url}" target="_blank" style="color:var(--accent)">Visit →</a>`],
+  ];
+  div.innerHTML = `<table class="compare-table">
+    <tr><th>Feature</th><th>${n1}</th><th>${n2}</th></tr>
+    ${rows.map(r => `<tr><td style="font-weight:600;color:var(--muted)">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}
+  </table>`;
+}
+
+// WORKFLOWS
+(function() {
+  const grid = document.getElementById('workflows-grid');
+  grid.innerHTML = workflows.map(w => `
+    <div class="workflow-card">
+      <div class="workflow-title">${w.title}</div>
+      <ol class="workflow-steps">
+        ${w.steps.map((s, i) => `<li><span class="step-num">${i+1}.</span> ${s}</li>`).join('')}
+      </ol>
+    </div>
+  `).join('');
+})();
+
+// PROMPTS
+let activePromptCat = 0;
+function renderPrompts() {
+  const tabs = document.getElementById('prompts-tabs');
+  tabs.innerHTML = prompts.map((p, i) => `<button class="ptab ${i === activePromptCat ? 'active' : ''}" onclick="setPromptCat(${i})">${p.icon} ${p.cat}</button>`).join('');
+  const list = document.getElementById('prompts-list');
+  const cur = prompts[activePromptCat];
+  list.innerHTML = cur.items.map((item, i) => `
+    <div class="prompt-item" onclick="copyPrompt(this, '${item.replace(/'/g, "\'")}')">
+      <div class="prompt-text">${item}</div>
+      <button class="copy-btn">Copy</button>
+    </div>
+  `).join('');
+}
+function setPromptCat(i) { activePromptCat = i; renderPrompts(); }
+function copyPrompt(el, text) {
+  navigator.clipboard.writeText(text).catch(() => {});
+  const btn = el.querySelector('.copy-btn');
+  btn.textContent = '✓ Copied!';
+  btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  toast('Prompt copied!');
+}
+renderPrompts();
+
+// GLOSSARY
+(function() {
+  const grid = document.getElementById('glossary-grid');
+  grid.innerHTML = glossary.map(([term, def]) => `
+    <div class="gloss-card">
+      <div class="gloss-term">${term}</div>
+      <div class="gloss-def">${def}</div>
+    </div>
+  `).join('');
+})();
+
+// FORMS
+function newsletter() {
+  const em = document.getElementById('nl-email').value;
+  if (!em) { toast('Please enter your email'); return; }
+  toast('🎉 Subscribed! Thank you!');
+  document.getElementById('nl-email').value = '';
+}
+function submitTool() {
+  const n = document.getElementById('sub-name').value;
+  const u = document.getElementById('sub-url').value;
+  if (!n || !u) { toast('Please fill in name and URL'); return; }
+  toast('🙏 Tool submitted! We\'ll review it soon.');
+  document.getElementById('sub-name').value = '';
+  document.getElementById('sub-url').value = '';
+  document.getElementById('sub-why').value = '';
+}
+</script>
+</body>
+</html>
