@@ -169,11 +169,11 @@ nav{position:fixed;top:3px;left:0;right:0;z-index:1000;background:rgba(2,6,23,.8
 #space-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
 
 /* HERO */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 1.5rem 3rem;z-index:1}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:74px 1.5rem 2rem;z-index:1}
 
 /* PLANET */
-.planet-wrap{position:relative;width:440px;height:440px;margin:0 auto 2rem;flex-shrink:0}
-.planet{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#e0d5ff 0%,#b39ddb 8%,#7c3aed 28%,#5b21b6 50%,#3b0e8c 68%,#1e0a3c 85%,#0d0520 100%);box-shadow:0 0 0 1px rgba(167,139,250,.15),0 0 40px rgba(124,58,237,.6),0 0 80px rgba(124,58,237,.35),0 0 140px rgba(124,58,237,.2),0 0 200px rgba(76,29,149,.15),inset 0 0 60px rgba(0,0,0,.4);animation:planetFloat 8s ease-in-out infinite;cursor:pointer;transition:transform .3s}
+.planet-wrap{position:relative;width:380px;height:380px;margin:0 auto .6rem;flex-shrink:0}
+.planet{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:238px;height:238px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#e0d5ff 0%,#b39ddb 8%,#7c3aed 28%,#5b21b6 50%,#3b0e8c 68%,#1e0a3c 85%,#0d0520 100%);box-shadow:0 0 0 1px rgba(167,139,250,.15),0 0 40px rgba(124,58,237,.6),0 0 80px rgba(124,58,237,.35),0 0 140px rgba(124,58,237,.2),0 0 200px rgba(76,29,149,.15),inset 0 0 60px rgba(0,0,0,.4);animation:planetFloat 8s ease-in-out infinite;cursor:pointer;transition:transform .3s}
 .planet:hover{transform:translate(-50%,-50%) scale(1.04)}
 .planet::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0%,rgba(167,139,250,.08) 15%,transparent 30%,rgba(124,58,237,.06) 50%,transparent 65%,rgba(196,181,253,.05) 80%,transparent 100%);animation:planetSpin 20s linear infinite}
 .planet::after{content:'';position:absolute;top:10%;left:15%;width:35%;height:35%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.35) 0%,transparent 70%);pointer-events:none}
@@ -183,39 +183,71 @@ nav{position:fixed;top:3px;left:0;right:0;z-index:1000;background:rgba(2,6,23,.8
 .planet-text .line3{font-size:.45rem;font-weight:700;letter-spacing:.2em;color:rgba(196,181,253,.9);text-shadow:0 0 8px rgba(167,139,250,.8);text-transform:uppercase}
 /* Rings */
 .ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1.5px solid;transform-origin:center}
-.ring1{width:340px;height:340px;margin:-170px 0 0 -170px;border-color:rgba(167,139,250,.25);transform:rotateX(75deg);animation:ringSpin 12s linear infinite}
-.ring2{width:390px;height:390px;margin:-195px 0 0 -195px;border-color:rgba(236,72,153,.18);transform:rotateX(75deg) rotateZ(30deg);animation:ringSpin 18s linear infinite reverse}
-.ring3{width:430px;height:430px;margin:-215px 0 0 -215px;border-color:rgba(124,58,237,.12);transform:rotateX(72deg) rotateZ(-15deg);animation:ringSpin 25s linear infinite}
+.ring1{width:292px;height:292px;margin:-146px 0 0 -146px;border-color:rgba(167,139,250,.25);transform:rotateX(75deg);animation:ringSpin 12s linear infinite}
+.ring2{width:334px;height:334px;margin:-167px 0 0 -167px;border-color:rgba(236,72,153,.18);transform:rotateX(75deg) rotateZ(30deg);animation:ringSpin 18s linear infinite reverse}
+.ring3{width:370px;height:370px;margin:-185px 0 0 -185px;border-color:rgba(124,58,237,.12);transform:rotateX(72deg) rotateZ(-15deg);animation:ringSpin 25s linear infinite}
 /* Saturn ring flat */
-.saturn-ring{position:absolute;top:50%;left:50%;width:380px;height:70px;margin:-35px 0 0 -190px;border-radius:50%;border:none;background:linear-gradient(90deg,transparent 5%,rgba(167,139,250,.08) 20%,rgba(196,181,253,.14) 35%,rgba(167,139,250,.1) 50%,rgba(196,181,253,.12) 65%,rgba(167,139,250,.06) 80%,transparent 95%);transform:rotateX(75deg);pointer-events:none}
+.saturn-ring{position:absolute;top:50%;left:50%;width:326px;height:60px;margin:-30px 0 0 -163px;border-radius:50%;border:none;background:linear-gradient(90deg,transparent 5%,rgba(167,139,250,.08) 20%,rgba(196,181,253,.14) 35%,rgba(167,139,250,.1) 50%,rgba(196,181,253,.12) 65%,rgba(167,139,250,.06) 80%,transparent 95%);transform:rotateX(75deg);pointer-events:none}
 /* Orbit dots */
 .orb-dot{position:absolute;width:6px;height:6px;border-radius:50%;top:50%;left:50%}
 .orb-dot.d1{background:#a78bfa;box-shadow:0 0 8px #a78bfa;animation:orb1 12s linear infinite}
 .orb-dot.d2{background:#ec4899;box-shadow:0 0 8px #ec4899;animation:orb2 18s linear infinite}
 .orb-dot.d3{background:#f59e0b;box-shadow:0 0 6px #f59e0b;animation:orb3 25s linear infinite}
 /* Glow pulse */
-.planet-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.2) 0%,transparent 70%);animation:glowPulse 3s ease-in-out infinite;pointer-events:none}
+.planet-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:274px;height:274px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.2) 0%,transparent 70%);animation:glowPulse 3s ease-in-out infinite;pointer-events:none}
 
 @keyframes planetFloat{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-15px)}}
 @keyframes planetSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @keyframes ringSpin{from{transform:rotateX(75deg) rotateZ(0deg)}to{transform:rotateX(75deg) rotateZ(360deg)}}
-@keyframes orb1{from{transform:translate(-3px,-3px) rotate(0deg) translateX(170px)}to{transform:translate(-3px,-3px) rotate(360deg) translateX(170px)}}
-@keyframes orb2{from{transform:translate(-3px,-3px) rotate(0deg) translateX(195px)}to{transform:translate(-3px,-3px) rotate(360deg) translateX(195px)}}
-@keyframes orb3{from{transform:translate(-3px,-3px) rotate(0deg) translateX(215px)}to{transform:translate(-3px,-3px) rotate(360deg) translateX(215px)}}
+@keyframes orb1{from{transform:translate(-3px,-3px) rotate(0deg) translateX(146px)}to{transform:translate(-3px,-3px) rotate(360deg) translateX(170px)}}
+@keyframes orb2{from{transform:translate(-3px,-3px) rotate(0deg) translateX(167px)}to{transform:translate(-3px,-3px) rotate(360deg) translateX(195px)}}
+@keyframes orb3{from{transform:translate(-3px,-3px) rotate(0deg) translateX(185px)}to{transform:translate(-3px,-3px) rotate(360deg) translateX(215px)}}
 @keyframes glowPulse{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}
 
-.hero-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;line-height:1.1;margin-bottom:1rem}
+.hero-title{font-size:clamp(1.9rem,4.4vw,3.15rem);font-weight:900;line-height:1.1;margin-bottom:.6rem}
 .hero-title span{background:linear-gradient(135deg,#a78bfa 0%,#ec4899 50%,#f59e0b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-sub{font-size:1.1rem;color:var(--muted);max-width:600px;margin:.5rem auto 2rem}
-.hero-stats{display:flex;gap:2rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}
+.hero-sub{font-size:1rem;color:var(--muted);max-width:580px;margin:.3rem auto 1.3rem}
+.hero-stats{display:flex;gap:2rem;justify-content:center;margin-bottom:1.4rem;flex-wrap:wrap}
 .stat{text-align:center}
-.stat-num{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-num{font-size:1.75rem;font-weight:900;background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .stat-label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
 .btn-primary{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;padding:.75rem 2rem;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:.95rem;transition:transform .2s,box-shadow .2s}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(124,58,237,.4)}
 .btn-secondary{background:transparent;color:var(--text);padding:.75rem 2rem;border-radius:10px;border:1px solid var(--border);cursor:pointer;font-weight:600;font-size:.95rem;transition:all .2s}
 .btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ═══════ 3D ENTER BUTTON — PANOS KHAN ═══════ */
+.enter3d-wrap{display:flex;flex-direction:column;align-items:center;gap:.7rem;margin:.1rem 0 1rem;perspective:1100px}
+.enter3d{position:relative;border:0;background:none;padding:0;cursor:pointer;transform-style:preserve-3d;transition:transform .3s cubic-bezier(.2,.8,.3,1);-webkit-tap-highlight-color:transparent;will-change:transform}
+.enter3d-halo{position:absolute;inset:-24px;border-radius:38px;background:conic-gradient(from 0deg,#7c3aed,#ec4899,#f59e0b,#38bdf8,#a78bfa,#7c3aed);filter:blur(28px);opacity:.42;animation:haloSpin 7s linear infinite;z-index:-2;pointer-events:none;transition:opacity .3s,filter .3s}
+.enter3d-edge{position:absolute;inset:0;border-radius:20px;background:linear-gradient(180deg,#5b21b6 0%,#33106e 55%,#160736 100%);transform:translateY(10px);box-shadow:0 22px 45px rgba(88,28,135,.6),0 6px 14px rgba(0,0,0,.5);z-index:-1}
+.enter3d-face{position:relative;display:flex;align-items:center;gap:1.05rem;padding:1rem 2.35rem;border-radius:20px;background:linear-gradient(135deg,#b79dff 0%,#8b5cf6 26%,#7c3aed 52%,#c026d3 78%,#ec4899 100%);transition:transform .16s cubic-bezier(.3,.7,.4,1.5),filter .25s;box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -4px 0 rgba(0,0,0,.3),inset 0 0 26px rgba(255,255,255,.14);overflow:hidden}
+.enter3d-face::after{content:'';position:absolute;top:0;left:-65%;width:42%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);animation:sheen 3.8s ease-in-out infinite;pointer-events:none}
+.enter3d:hover{transform:translateY(-5px)}
+.enter3d:hover .enter3d-face{transform:translateY(-3px);filter:brightness(1.14) saturate(1.1)}
+.enter3d:hover .enter3d-halo{opacity:.8;filter:blur(34px)}
+.enter3d:hover .enter3d-arw{transform:translateX(7px)}
+.enter3d:active{transform:translateY(0)}
+.enter3d:active .enter3d-face{transform:translateY(9px);transition-duration:.05s}
+.enter3d-ico{font-size:1.55rem;filter:drop-shadow(0 0 9px rgba(255,255,255,.75));animation:icoFloat 2.6s ease-in-out infinite;flex-shrink:0}
+.enter3d-txt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.16}
+.enter3d-t1{font-size:1.06rem;font-weight:900;letter-spacing:.055em;color:#fff;text-shadow:0 2px 7px rgba(0,0,0,.4),0 0 20px rgba(255,255,255,.4);white-space:nowrap}
+.enter3d-t2{font-size:.58rem;font-weight:800;letter-spacing:.25em;color:rgba(255,255,255,.85);text-transform:uppercase;white-space:nowrap}
+.enter3d-arw{font-size:1.3rem;color:#fff;transition:transform .28s;text-shadow:0 0 12px rgba(255,255,255,.7);flex-shrink:0}
+.enter3d-hint{font-size:.66rem;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+@keyframes haloSpin{to{transform:rotate(360deg)}}
+@keyframes sheen{0%,60%{left:-65%}86%,100%{left:135%}}
+@keyframes icoFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-5px) rotate(5deg)}}
+
+/* ═══════ POLISH ═══════ */
+#vignette{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 85% 65% at 50% 38%,transparent 30%,rgba(6,2,18,.3) 72%,rgba(3,1,10,.72) 100%)}
+.hero-title{text-shadow:0 0 45px rgba(124,58,237,.3)}
+.hero-title span{background:linear-gradient(135deg,#a78bfa 0%,#ec4899 35%,#f59e0b 60%,#38bdf8 85%,#a78bfa 100%);background-size:250% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:titleFlow 9s ease-in-out infinite}
+@keyframes titleFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.planet{box-shadow:0 0 0 1px rgba(167,139,250,.18),0 0 45px rgba(124,58,237,.65),0 0 95px rgba(124,58,237,.4),0 0 165px rgba(124,58,237,.22),0 0 240px rgba(76,29,149,.18),inset 0 0 65px rgba(0,0,0,.45),inset -22px -22px 60px rgba(0,0,0,.5)}
+.stat-num{text-shadow:0 0 28px rgba(167,139,250,.35)}
+@media(prefers-reduced-motion:reduce){.enter3d-halo,.enter3d-face::after,.enter3d-ico,.hero-title span{animation:none}}
 
 /* SECTIONS */
 section{position:relative;z-index:1;padding:4rem 1.5rem}
@@ -359,14 +391,19 @@ footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;text-align:ce
 
 @media(max-width:768px){
   .nav-links{display:none}
-  .planet-wrap{width:300px;height:300px}
-  .planet{width:200px;height:200px}
+  .planet-wrap{width:270px;height:270px}
+  .planet{width:180px;height:180px}
   .ring1{width:240px;height:240px;margin:-120px 0 0 -120px}
   .ring2{width:275px;height:275px;margin:-137.5px 0 0 -137.5px}
   .ring3{width:295px;height:295px;margin:-147.5px 0 0 -147.5px}
   .saturn-ring{width:270px;height:50px;margin:-25px 0 0 -135px}
   .tools-grid{grid-template-columns:1fr}
   .hero-stats{gap:1.25rem}
+  .enter3d-face{padding:.85rem 1.5rem;gap:.7rem}
+  .enter3d-t1{font-size:.9rem}
+  .enter3d-t2{font-size:.5rem;letter-spacing:.18em}
+  .enter3d-ico{font-size:1.25rem}
+  .enter3d-halo{inset:-16px;filter:blur(20px)}
   .build-hero-banner{flex-direction:column;gap:1rem;text-align:center}
   .build-hero-stats{justify-content:center}
   .build-card{padding:.85rem}
@@ -407,6 +444,7 @@ footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;text-align:ce
 
 <div id="progress-bar"></div>
 <canvas id="space-canvas"></canvas>
+<div id="vignette"></div>
 
 <nav>
   <div class="nav-inner">
@@ -451,9 +489,24 @@ footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;text-align:ce
     <div class="stat"><div class="stat-num">8</div><div class="stat-label">Workflows</div></div>
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Prompts</div></div>
   </div>
+  <div class="enter3d-wrap">
+    <button class="enter3d" id="enter3d" onclick="scrollTo('#tools')" aria-label="Enter the tools directory by Panos Khan">
+      <span class="enter3d-halo"></span>
+      <span class="enter3d-edge"></span>
+      <span class="enter3d-face">
+        <span class="enter3d-ico">🚀</span>
+        <span class="enter3d-txt">
+          <span class="enter3d-t1">ENTER TOOLS</span>
+          <span class="enter3d-t2">By Panos Khan</span>
+        </span>
+        <span class="enter3d-arw">→</span>
+      </span>
+    </button>
+    <div class="enter3d-hint">345+ Free AI Tools Inside</div>
+  </div>
   <div class="hero-btns">
-    <button class="btn-primary" onclick="scrollTo('#tools')">🚀 Explore All Tools</button>
     <button class="btn-secondary" onclick="scrollTo('#quiz')">🎯 Find My AI</button>
+    <button class="btn-secondary" onclick="scrollTo('#build-ai')">🛠️ Build Custom AI</button>
   </div>
 </section>
 
@@ -1054,69 +1107,401 @@ window.addEventListener('scroll', () => {
   btt.classList.toggle('visible', window.scrollY > 400);
 });
 
-// CANVAS STARS + SHOOTING STARS
+// ═══════════ 3D GALAXY ENGINE — spiral arms, solar systems, lightning ═══════════
 (function() {
   const canvas = document.getElementById('space-canvas');
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  let W, H, stars = [], shooters = [];
-  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  function initStars() {
-    stars = [];
-    for (let i = 0; i < 280; i++) {
-      stars.push({
-        x: Math.random() * W, y: Math.random() * H,
-        r: Math.random() * 1.8 + .2,
-        o: Math.random() * .7 + .1,
-        sp: Math.random() * .015 + .005,
-        phase: Math.random() * Math.PI * 2,
-        layer: Math.floor(Math.random() * 3)
+  let W, H, DPR, CX, CY, LOW = false;
+  let mx = 0, my = 0, tmx = 0, tmy = 0;
+
+  const FOCAL = 560, CAMZ = 1050, TILT = 0.58;
+  const cosT = Math.cos(TILT), sinT = Math.sin(TILT);
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TAU = Math.PI * 2;
+
+  let arms = [], dust = [], far = [], systems = [], bolts = [], shooters = [], flash = 0;
+
+  const PAL = [
+    [255,255,255],[226,218,255],[196,181,253],[167,139,250],
+    [236,72,153],[245,158,11],[125,211,252]
+  ];
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    LOW = W < 760;
+    canvas.width = Math.floor(W * DPR); canvas.height = Math.floor(H * DPR);
+    canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    CX = W * .5; CY = H * .40;
+  }
+
+  function build() {
+    // ── spiral galaxy stars ──
+    arms = [];
+    const ARMS = 4, N = LOW ? 620 : 1650;
+    for (let i = 0; i < N; i++) {
+      const a = i % ARMS;
+      const t = Math.pow(Math.random(), .58);
+      const r = 55 + t * 830;
+      const spread = (1 - t) * .5 + .14;
+      const ang = (a / ARMS) * TAU + t * 3.35 + (Math.random() - .5) * spread;
+      arms.push({
+        r, ang, y: (Math.random() - .5) * (78 * (1 - t) + 16),
+        s: Math.random() * 1.6 + .3,
+        o: Math.random() * .55 + .3,
+        c: PAL[(Math.random() * PAL.length) | 0],
+        tw: Math.random() * TAU,
+        sp: .9 / (.5 + r / 460)
+      });
+    }
+    // ── nebula dust in the disk ──
+    dust = [];
+    const D = LOW ? 16 : 40;
+    for (let i = 0; i < D; i++) {
+      const t = Math.pow(Math.random(), .55);
+      const r = 90 + t * 790;
+      dust.push({
+        r, ang: (i % 4 / 4) * TAU + t * 3.35 + (Math.random() - .5) * .7,
+        y: (Math.random() - .5) * 60,
+        rad: 95 + Math.random() * 200,
+        c: Math.random() < .42 ? [124,58,237] : (Math.random() < .55 ? [236,72,153] : [56,189,248]),
+        o: .05 + Math.random() * .075,
+        sp: .9 / (.5 + r / 460)
+      });
+    }
+    // ── distant background stars ──
+    far = [];
+    const F = LOW ? 110 : 250;
+    for (let i = 0; i < F; i++) {
+      far.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.2 + .3,
+                 o: Math.random() * .5 + .12, tw: Math.random() * TAU, sp: .4 + Math.random() });
+    }
+    // ── solar systems orbiting the core ──
+    systems = [];
+    const S = LOW ? 2 : 4;
+    const suns = [[245,158,11],[125,211,252],[236,72,153],[167,139,250]];
+    for (let i = 0; i < S; i++) {
+      const r = 310 + Math.random() * 430, pc = 2 + ((Math.random() * 3) | 0), planets = [];
+      for (let p = 0; p < pc; p++) {
+        planets.push({
+          orb: 17 + p * (11 + Math.random() * 9),
+          ang: Math.random() * TAU,
+          sp: (1.35 - p * .2) * (Math.random() * .5 + .8),
+          sz: 1.1 + Math.random() * 1.5,
+          c: PAL[(Math.random() * PAL.length) | 0]
+        });
+      }
+      systems.push({
+        r, ang: Math.random() * TAU, y: (Math.random() - .5) * 70,
+        sun: suns[i % suns.length], sz: 3.4 + Math.random() * 2.6,
+        planets, sp: .9 / (.5 + r / 460), pulse: Math.random() * TAU
       });
     }
   }
-  function spawnShooter() {
-    if (Math.random() > 0.007) return;
-    shooters.push({ x: Math.random() * W * .6, y: Math.random() * H * .4, vx: 6 + Math.random() * 6, vy: 3 + Math.random() * 4, life: 1, tail: [] });
+
+  function project(x, y, z) {
+    const y2 = y * cosT - z * sinT;
+    const z2 = y * sinT + z * cosT + CAMZ;
+    if (z2 < 40) return null;
+    const k = FOCAL / z2;
+    return { x: CX + (x - mx * 1.6) * k, y: CY + (y2 - my * 1.6) * k, k };
   }
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    // nebula
-    const ng = ctx.createRadialGradient(W*.5, H*.3, 0, W*.5, H*.3, H*.6);
-    ng.addColorStop(0, 'rgba(76,29,149,.04)');
-    ng.addColorStop(.5, 'rgba(124,58,237,.02)');
-    ng.addColorStop(1, 'transparent');
-    ctx.fillStyle = ng;
-    ctx.fillRect(0, 0, W, H);
-    // stars
-    const t = Date.now() * .001;
-    stars.forEach(s => {
-      const o = s.o * (.6 + .4 * Math.sin(t * s.sp * 10 + s.phase));
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-      ctx.fillStyle = s.layer === 0 ? `rgba(255,255,255,${o})` : s.layer === 1 ? `rgba(167,139,250,${o*.7})` : `rgba(236,72,153,${o*.4})`;
-      ctx.fill();
-    });
-    // shooting stars
-    shooters.forEach((s, i) => {
-      s.tail.push({x: s.x, y: s.y, o: s.life});
-      if (s.tail.length > 20) s.tail.shift();
-      s.x += s.vx; s.y += s.vy; s.life -= .03;
-      // draw tail
-      s.tail.forEach((p, j) => {
-        const alpha = (j / s.tail.length) * p.o * .8;
+
+  // ───────── LIGHTNING ─────────
+  function jag(x1, y1, x2, y2, disp, depth) {
+    let p = [{x:x1,y:y1},{x:x2,y:y2}];
+    for (let d = 0; d < depth; d++) {
+      const n = [];
+      for (let i = 0; i < p.length - 1; i++) {
+        const a = p[i], b = p[i+1];
+        const dx = b.x-a.x, dy = b.y-a.y, L = Math.hypot(dx,dy) || 1;
+        const o = (Math.random() - .5) * disp;
+        n.push(a, { x:(a.x+b.x)/2 - dy/L*o, y:(a.y+b.y)/2 + dx/L*o });
+      }
+      n.push(p[p.length-1]);
+      p = n; disp *= .54;
+    }
+    return p;
+  }
+
+  function planetPos() {
+    const el = document.getElementById('planet-sphere');
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    if (r.width < 10 || r.bottom < -80 || r.top > H + 80) return null;
+    return { x: r.left + r.width/2, y: r.top + r.height/2, rad: r.width/2 };
+  }
+
+  function spawnBolt() {
+    const pr = planetPos();
+    if (!pr) return;
+    const segs = [], R = pr.rad * 1.03;
+    const rim = Math.random() < .58;
+    const a1 = Math.random() * TAU;
+    const x1 = pr.x + Math.cos(a1)*R, y1 = pr.y + Math.sin(a1)*R;
+    let x2, y2, disp;
+    if (rim) {
+      const a2 = a1 + (Math.random()*1.5 + .95) * (Math.random() < .5 ? -1 : 1);
+      x2 = pr.x + Math.cos(a2)*R; y2 = pr.y + Math.sin(a2)*R; disp = R*.6;
+    } else {
+      const L = R * (.6 + Math.random()*.95);
+      x2 = pr.x + Math.cos(a1)*(R+L); y2 = pr.y + Math.sin(a1)*(R+L); disp = R*.42;
+    }
+    const main = jag(x1, y1, x2, y2, disp, 5);
+    segs.push(main);
+    const nb = 1 + ((Math.random()*3)|0);
+    for (let i = 0; i < nb; i++) {
+      const j = 2 + ((Math.random()*(main.length-4))|0);
+      const p0 = main[j] || main[0];
+      const ang = Math.random()*TAU, len = R*(.18 + Math.random()*.42);
+      segs.push(jag(p0.x, p0.y, p0.x+Math.cos(ang)*len, p0.y+Math.sin(ang)*len, len*.5, 3));
+    }
+    const hue = Math.random() < .34 ? [125,211,252] : (Math.random() < .5 ? [214,200,255] : [236,72,153]);
+    bolts.push({ segs, life: 1, hue, cx: pr.x, cy: pr.y, rad: R });
+    flash = Math.max(flash, .8);
+  }
+
+  function drawBolts() {
+    for (let i = bolts.length - 1; i >= 0; i--) {
+      const b = bolts[i];
+      b.life -= .055;
+      if (b.life <= 0) { bolts.splice(i, 1); continue; }
+      const a = b.life * (.55 + .45 * Math.random());
+      const [r,g,bl] = b.hue;
+      for (const seg of b.segs) {
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.2, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-        ctx.fill();
-      });
-      if (s.life <= 0) shooters.splice(i, 1);
+        ctx.moveTo(seg[0].x, seg[0].y);
+        for (let j = 1; j < seg.length; j++) ctx.lineTo(seg[j].x, seg[j].y);
+        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.strokeStyle = `rgba(${r},${g},${bl},${a*.3})`; ctx.lineWidth = 7; ctx.stroke();
+        ctx.strokeStyle = `rgba(${r},${g},${bl},${a*.55})`; ctx.lineWidth = 3; ctx.stroke();
+        ctx.strokeStyle = `rgba(255,255,255,${a*.95})`; ctx.lineWidth = 1.3; ctx.stroke();
+      }
+    }
+  }
+
+  // ───────── SHOOTING STARS ─────────
+  function spawnShooter() {
+    if (shooters.length > 3 || Math.random() > .006) return;
+    const fromLeft = Math.random() < .5;
+    shooters.push({
+      x: fromLeft ? -40 : W * (.3 + Math.random()*.7),
+      y: Math.random() * H * .5,
+      vx: (fromLeft ? 1 : -1) * (7 + Math.random()*7),
+      vy: 2.5 + Math.random()*4, life: 1, tail: [],
+      c: PAL[(Math.random()*PAL.length)|0]
     });
+  }
+
+  function drawShooters() {
+    for (let i = shooters.length - 1; i >= 0; i--) {
+      const s = shooters[i];
+      s.tail.push({ x: s.x, y: s.y });
+      if (s.tail.length > 26) s.tail.shift();
+      s.x += s.vx; s.y += s.vy; s.life -= .014;
+      for (let j = 0; j < s.tail.length; j++) {
+        const p = s.tail[j], f = j / s.tail.length;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, f * 1.9 + .2, 0, TAU);
+        ctx.fillStyle = `rgba(${s.c[0]},${s.c[1]},${s.c[2]},${f * f * s.life * .9})`;
+        ctx.fill();
+      }
+      const hg = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, 14);
+      hg.addColorStop(0, `rgba(255,255,255,${s.life*.85})`);
+      hg.addColorStop(1, 'transparent');
+      ctx.fillStyle = hg;
+      ctx.beginPath(); ctx.arc(s.x, s.y, 14, 0, TAU); ctx.fill();
+      if (s.life <= 0 || s.x < -120 || s.x > W + 120 || s.y > H + 120) shooters.splice(i, 1);
+    }
+  }
+
+  // ───────── MAIN LOOP ─────────
+  function draw(now) {
+    const T = now * .001;
+    mx += (tmx - mx) * .045; my += (tmy - my) * .045;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // deep space wash
+    const bg = ctx.createRadialGradient(CX, CY, 0, CX, CY, Math.max(W, H) * .9);
+    bg.addColorStop(0, 'rgba(76,29,149,.11)');
+    bg.addColorStop(.35, 'rgba(49,16,110,.055)');
+    bg.addColorStop(.7, 'rgba(124,58,237,.02)');
+    bg.addColorStop(1, 'transparent');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+    ctx.globalCompositeOperation = 'lighter';
+
+    // background stars
+    for (const s of far) {
+      const o = s.o * (.55 + .45 * Math.sin(T * s.sp + s.tw));
+      ctx.fillStyle = `rgba(255,255,255,${o})`;
+      ctx.fillRect(s.x, s.y, s.r, s.r);
+    }
+
+    const ROT = REDUCED ? 0 : T * .042;
+
+    // nebula dust
+    for (const d of dust) {
+      const a = d.ang + ROT * d.sp;
+      const p = project(Math.cos(a) * d.r, d.y, Math.sin(a) * d.r);
+      if (!p) continue;
+      const rad = d.rad * p.k;
+      if (rad < 3) continue;
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, rad);
+      g.addColorStop(0, `rgba(${d.c[0]},${d.c[1]},${d.c[2]},${d.o * Math.min(1, p.k)})`);
+      g.addColorStop(1, 'transparent');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(p.x, p.y, rad, 0, TAU); ctx.fill();
+    }
+
+    // galactic core
+    const cp = project(0, 0, 0);
+    if (cp) {
+      const cr = 215 * cp.k;
+      const g = ctx.createRadialGradient(cp.x, cp.y, 0, cp.x, cp.y, cr);
+      g.addColorStop(0, 'rgba(255,246,222,.24)');
+      g.addColorStop(.22, 'rgba(245,158,11,.11)');
+      g.addColorStop(.55, 'rgba(167,139,250,.05)');
+      g.addColorStop(1, 'transparent');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(cp.x, cp.y, cr, 0, TAU); ctx.fill();
+    }
+
+    // spiral arm stars
+    for (const s of arms) {
+      const a = s.ang + ROT * s.sp;
+      const p = project(Math.cos(a) * s.r, s.y, Math.sin(a) * s.r);
+      if (!p) continue;
+      const sz = s.s * p.k * 1.45;
+      if (sz < .12) continue;
+      const o = s.o * (.55 + .45 * Math.sin(T * 1.7 + s.tw)) * Math.min(1, p.k * 1.6);
+      ctx.fillStyle = `rgba(${s.c[0]},${s.c[1]},${s.c[2]},${o})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, sz, 0, TAU); ctx.fill();
+    }
+
+    // solar systems
+    for (const sy of systems) {
+      const a = sy.ang + ROT * sy.sp;
+      const sx = Math.cos(a) * sy.r, sz = Math.sin(a) * sy.r;
+      const p = project(sx, sy.y, sz);
+      if (!p) continue;
+      const k = p.k, pulse = .85 + .15 * Math.sin(T * 2 + sy.pulse);
+
+      // orbit paths
+      ctx.strokeStyle = `rgba(167,139,250,${.13 * Math.min(1, k * 1.8)})`;
+      ctx.lineWidth = .7;
+      for (const pl of sy.planets) {
+        ctx.beginPath();
+        let started = false;
+        for (let i = 0; i <= 26; i++) {
+          const oa = (i / 26) * TAU;
+          const op = project(sx + Math.cos(oa) * pl.orb, sy.y, sz + Math.sin(oa) * pl.orb);
+          if (!op) { started = false; continue; }
+          if (!started) { ctx.moveTo(op.x, op.y); started = true; }
+          else ctx.lineTo(op.x, op.y);
+        }
+        ctx.stroke();
+      }
+
+      // sun
+      const sr = sy.sz * k * 9.5 * pulse;
+      if (sr > .6) {
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, sr);
+        g.addColorStop(0, `rgba(${sy.sun[0]},${sy.sun[1]},${sy.sun[2]},.6)`);
+        g.addColorStop(.3, `rgba(${sy.sun[0]},${sy.sun[1]},${sy.sun[2]},.17)`);
+        g.addColorStop(1, 'transparent');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(p.x, p.y, sr, 0, TAU); ctx.fill();
+      }
+      ctx.fillStyle = `rgba(255,253,244,${Math.min(1, k * 2.4)})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, Math.max(.6, sy.sz * k * 1.2 * pulse), 0, TAU); ctx.fill();
+
+      // planets
+      for (const pl of sy.planets) {
+        const pa = pl.ang + (REDUCED ? 0 : T * pl.sp);
+        const pp = project(sx + Math.cos(pa) * pl.orb, sy.y, sz + Math.sin(pa) * pl.orb);
+        if (!pp) continue;
+        const psz = Math.max(.35, pl.sz * pp.k * 1.35);
+        ctx.fillStyle = `rgba(${pl.c[0]},${pl.c[1]},${pl.c[2]},${Math.min(.95, pp.k * 2.6)})`;
+        ctx.beginPath(); ctx.arc(pp.x, pp.y, psz, 0, TAU); ctx.fill();
+      }
+    }
+
+    // lightning flash halo around the planet
+    if (flash > .01) {
+      const pr = planetPos();
+      if (pr) {
+        const fr = pr.rad * 2.4;
+        const g = ctx.createRadialGradient(pr.x, pr.y, pr.rad * .5, pr.x, pr.y, fr);
+        g.addColorStop(0, `rgba(196,181,253,${flash * .16})`);
+        g.addColorStop(.5, `rgba(124,58,237,${flash * .07})`);
+        g.addColorStop(1, 'transparent');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(pr.x, pr.y, fr, 0, TAU); ctx.fill();
+      }
+      flash *= .86;
+    }
+
+    drawBolts();
+    drawShooters();
     spawnShooter();
+    if (!REDUCED && Math.random() < .011) spawnBolt();
+
+    ctx.globalCompositeOperation = 'source-over';
     requestAnimationFrame(draw);
   }
-  resize();
-  initStars();
-  draw();
-  window.addEventListener('resize', () => { resize(); initStars(); });
+
+  // ───────── INPUT ─────────
+  window.addEventListener('mousemove', e => {
+    tmx = (e.clientX / W - .5) * 130;
+    tmy = (e.clientY / H - .5) * 90;
+  }, { passive: true });
+
+  window.addEventListener('deviceorientation', e => {
+    if (e.gamma == null) return;
+    tmx = Math.max(-130, Math.min(130, e.gamma * 2.2));
+    tmy = Math.max(-90, Math.min(90, (e.beta - 45) * 1.4));
+  }, { passive: true });
+
+  // click the planet → lightning storm
+  const ps = document.getElementById('planet-sphere');
+  if (ps) ps.addEventListener('click', () => {
+    for (let i = 0; i < 6; i++) setTimeout(spawnBolt, i * 60);
+  });
+
+  resize(); build();
+  requestAnimationFrame(draw);
+
+  let rt;
+  window.addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => { resize(); build(); }, 150);
+  });
+})();
+
+// ───────── 3D BUTTON TILT ─────────
+(function() {
+  const btn = document.getElementById('enter3d');
+  if (!btn) return;
+  const face = btn.querySelector('.enter3d-face');
+  const edge = btn.querySelector('.enter3d-edge');
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - .5;
+    const py = (e.clientY - r.top) / r.height - .5;
+    const t = `rotateX(${-py * 16}deg) rotateY(${px * 20}deg)`;
+    btn.style.transform = `translateY(-5px) ${t}`;
+    if (face) face.style.transform = `translateY(-3px) translateZ(14px)`;
+    if (edge) edge.style.transform = `translateY(10px) translateZ(-10px)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = '';
+    if (face) face.style.transform = '';
+    if (edge) edge.style.transform = '';
+  });
 })();
 
 // PLANET PARALLAX
