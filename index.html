@@ -151,6 +151,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+section,[id]{scroll-margin-top:72px}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-x:hidden}
 
 /* SCROLL PROGRESS */
@@ -450,16 +451,16 @@ footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;text-align:ce
   <div class="nav-inner">
     <div class="nav-logo">🌌 AI Universe</div>
     <div class="nav-links">
-      <button class="nav-link" onclick="scrollTo('#tools')">Tools</button>
-      <button class="nav-link" onclick="scrollTo('#trending')">Trending</button>
-      <button class="nav-link" onclick="scrollTo('#quiz')">Find My AI</button>
-      <button class="nav-link" onclick="scrollTo('#workflows')">Workflows</button>
-      <button class="nav-link" onclick="scrollTo('#prompts')">Prompts</button>
-      <button class="nav-link" onclick="scrollTo('#compare')">Compare</button>
-      <button class="nav-link" onclick="scrollTo('#glossary')">Glossary</button>
-      <button class="nav-link" onclick="scrollTo('#build-ai')" style="color:#f59e0b;font-weight:700">🛠️ Build AI</button>
+      <button class="nav-link" onclick="goSection('#tools')">Tools</button>
+      <button class="nav-link" onclick="goSection('#trending')">Trending</button>
+      <button class="nav-link" onclick="goSection('#quiz')">Find My AI</button>
+      <button class="nav-link" onclick="goSection('#workflows')">Workflows</button>
+      <button class="nav-link" onclick="goSection('#prompts')">Prompts</button>
+      <button class="nav-link" onclick="goSection('#compare')">Compare</button>
+      <button class="nav-link" onclick="goSection('#glossary')">Glossary</button>
+      <button class="nav-link" onclick="goSection('#build-ai')" style="color:#f59e0b;font-weight:700">🛠️ Build AI</button>
     </div>
-    <button id="nav-cta" onclick="scrollTo('#tools')">Explore Tools ↓</button>
+    <button id="nav-cta" onclick="goSection('#tools')">Explore Tools ↓</button>
   </div>
 </nav>
 
@@ -490,7 +491,7 @@ footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;text-align:ce
     <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Prompts</div></div>
   </div>
   <div class="enter3d-wrap">
-    <button class="enter3d" id="enter3d" onclick="scrollTo('#tools')" aria-label="Enter the tools directory by Panos Khan">
+    <button class="enter3d" id="enter3d" onclick="goSection('#tools')" aria-label="Enter the tools directory by Panos Khan">
       <span class="enter3d-halo"></span>
       <span class="enter3d-edge"></span>
       <span class="enter3d-face">
@@ -505,8 +506,8 @@ footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;text-align:ce
     <div class="enter3d-hint">345+ Free AI Tools Inside</div>
   </div>
   <div class="hero-btns">
-    <button class="btn-secondary" onclick="scrollTo('#quiz')">🎯 Find My AI</button>
-    <button class="btn-secondary" onclick="scrollTo('#build-ai')">🛠️ Build Custom AI</button>
+    <button class="btn-secondary" onclick="goSection('#quiz')">🎯 Find My AI</button>
+    <button class="btn-secondary" onclick="goSection('#build-ai')">🛠️ Build Custom AI</button>
   </div>
 </section>
 
@@ -699,7 +700,7 @@ footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;text-align:ce
 </footer>
 
 <div id="toast"></div>
-<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button id="btt" onclick="goTop()">↑</button>
 
 <script>
 // DATA
@@ -1090,7 +1091,16 @@ const glossary = [["LLM", "Large Language Model \u2014 an AI trained on massive 
 const quizData = [{"q": "What's your main goal?", "opts": ["Create content", "Write code", "Do research", "Automate work", "Have conversations"], "cats": [["Image Generation", "Video Generation", "Audio & Music", "Writing & Content"], ["Code & Development", "AI Agents", "No-Code & Automation"], ["Research & Analysis", "Education", "Data & Analytics"], ["Productivity", "No-Code & Automation", "AI Agents"], ["Chatbots & Assistants"]]}, {"q": "What type of content do you create?", "opts": ["Videos & podcasts", "Blog posts & articles", "Social media", "Business docs", "Images & art"], "cats": [["Video Generation", "Audio & Music", "Voice & Speech"], ["Writing & Content", "SEO & Marketing"], ["Social Media", "Design & Creative"], ["Productivity", "Presentation", "Email"], ["Image Generation", "Design & Creative", "Image Editing"]]}, {"q": "What's your experience level?", "opts": ["Complete beginner", "Somewhat familiar", "Comfortable with tech", "Developer/Technical", "Expert"], "cats": [["Chatbots & Assistants", "Writing & Content"], ["Productivity", "Design & Creative"], ["No-Code & Automation", "SEO & Marketing"], ["Code & Development", "AI Agents", "Data & Analytics"], ["AI Agents", "Code & Development", "Research & Analysis"]]}, {"q": "What industry are you in?", "opts": ["Marketing", "Healthcare", "Education", "Finance", "Creative/Media"], "cats": [["SEO & Marketing", "Social Media", "Writing & Content"], ["Healthcare & Wellness"], ["Education", "Research & Analysis"], ["Finance & Business", "Data & Analytics"], ["Design & Creative", "Video Generation", "Audio & Music"]]}, {"q": "What's your budget?", "opts": ["100% Free only", "Small budget OK", "Professional tools", "Enterprise", "Don't mind spending"], "cats": [["Chatbots & Assistants", "Image Generation", "Voice & Speech"], ["Writing & Content", "Productivity"], ["SEO & Marketing", "Video Generation"], ["Security", "Finance & Business", "HR & Recruiting"], ["Code & Development", "AI Agents"]]}];
 
 // UTILS
-function scrollTo(sel) { document.querySelector(sel)?.scrollIntoView({behavior:'smooth'}); }
+function goSection(sel) {
+  const el = document.querySelector(sel);
+  if (!el) return;
+  const nav = document.querySelector('nav');
+  const off = (nav ? nav.getBoundingClientRect().height : 0) + 12;
+  const top = el.getBoundingClientRect().top + window.pageYOffset - off;
+  window.scrollTo({ top: top < 0 ? 0 : top, behavior: 'smooth' });
+}
+function goTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+window.goSection = goSection; window.goTop = goTop;
 function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -1586,7 +1596,7 @@ function filterByCategory(cat) {
   document.getElementById('search').value = '';
   searchQuery = '';
   renderGrid();
-  scrollTo('#tools');
+  goSection('#tools');
 }
 initQuiz();
 
