@@ -367,7 +367,40 @@ footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;text-align:ce
   .saturn-ring{width:270px;height:50px;margin:-25px 0 0 -135px}
   .tools-grid{grid-template-columns:1fr}
   .hero-stats{gap:1.25rem}
+  .build-hero-banner{flex-direction:column;gap:1rem;text-align:center}
+  .build-hero-stats{justify-content:center}
+  .build-card{padding:.85rem}
 }
+
+/* BUILD AI SECTION */
+.build-hero-banner{display:flex;align-items:center;gap:2rem;background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(124,58,237,.08));border:1px solid rgba(245,158,11,.25);border-radius:20px;padding:2rem;margin-bottom:2rem;flex-wrap:wrap}
+.build-hero-icon{font-size:4rem;flex-shrink:0}
+.build-hero-title{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,#f59e0b,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.25rem}
+.build-hero-sub{color:var(--muted);font-size:.9rem}
+.build-hero-stats{display:flex;gap:2rem;margin-left:auto;flex-shrink:0}
+.build-stat-num{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#f59e0b,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block}
+.build-stat-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.build-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;justify-content:center}
+.build-filter-btn{padding:.4rem 1rem;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:.8rem;transition:all .2s;white-space:nowrap}
+.build-filter-btn:hover,.build-filter-btn.active{border-color:#f59e0b;background:rgba(245,158,11,.15);color:#f59e0b}
+.build-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.build-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.1rem;transition:all .25s;text-decoration:none;display:block;cursor:pointer;position:relative;overflow:hidden}
+.build-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--bc,linear-gradient(90deg,#f59e0b,#ec4899));transition:opacity .2s;opacity:.7}
+.build-card:hover{border-color:rgba(245,158,11,.4);transform:translateY(-3px);box-shadow:0 8px 30px rgba(245,158,11,.12)}
+.build-card:hover::before{opacity:1}
+.build-card-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem}
+.build-cat-icon{font-size:1.3rem;flex-shrink:0}
+.build-card-name{font-weight:700;font-size:.95rem}
+.build-card-cat{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem}
+.build-card-desc{font-size:.82rem;color:var(--muted);line-height:1.4}
+.build-card-badges{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.6rem}
+.build-badge{font-size:.65rem;padding:.15rem .45rem;border-radius:10px;font-weight:600;background:rgba(245,158,11,.12);color:#f59e0b;border:1px solid rgba(245,158,11,.2)}
+.build-badge.free{background:rgba(16,185,129,.1);color:#10b981;border-color:rgba(16,185,129,.2)}
+.build-badge.api{background:rgba(59,130,246,.1);color:#3b82f6;border-color:rgba(59,130,246,.2)}
+.build-badge.os{background:rgba(139,92,246,.1);color:#8b5cf6;border-color:rgba(139,92,246,.2)}
+.build-badge.new{background:rgba(236,72,153,.1);color:#ec4899;border-color:rgba(236,72,153,.2)}
+.build-badge.hot{background:rgba(239,68,68,.1);color:#ef4444;border-color:rgba(239,68,68,.2)}
+.build-section-label{grid-column:1/-1;font-size:1rem;font-weight:800;color:var(--text);padding:.5rem 0 .25rem;border-bottom:1px solid var(--border);margin-bottom:.25rem;display:flex;align-items:center;gap:.5rem}
 </style>
 </head>
 <body>
@@ -386,6 +419,7 @@ footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;text-align:ce
       <button class="nav-link" onclick="scrollTo('#prompts')">Prompts</button>
       <button class="nav-link" onclick="scrollTo('#compare')">Compare</button>
       <button class="nav-link" onclick="scrollTo('#glossary')">Glossary</button>
+      <button class="nav-link" onclick="scrollTo('#build-ai')" style="color:#f59e0b;font-weight:700">🛠️ Build AI</button>
     </div>
     <button id="nav-cta" onclick="scrollTo('#tools')">Explore Tools ↓</button>
   </div>
@@ -514,6 +548,28 @@ footer{border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;text-align:ce
     <h2 class="section-title">📖 <span>AI Glossary</span></h2>
     <p class="section-sub">Key AI terms explained in plain English</p>
     <div class="glossary-grid" id="glossary-grid"></div>
+  </div>
+</section>
+
+<!-- BUILD PANOS KHAN CUSTOM AI -->
+<section id="build-ai" style="background:linear-gradient(180deg,rgba(245,158,11,.04) 0%,transparent 100%)">
+  <div class="section-inner">
+    <h2 class="section-title">🛠️ Build <span>Panos Khan Custom AI</span></h2>
+    <p class="section-sub">200 hand-picked tools to build, train, deploy and scale your own AI — from APIs and frameworks to vector databases and no-code builders.</p>
+    <div class="build-hero-banner">
+      <div class="build-hero-icon">🤖</div>
+      <div>
+        <div class="build-hero-title">Your Own AI. Built Your Way.</div>
+        <div class="build-hero-sub">Curated by Panos Khan Foundation — everything you need to go from idea to live AI product in days.</div>
+      </div>
+      <div class="build-hero-stats">
+        <div><span class="build-stat-num">200</span><div class="build-stat-label">Tools</div></div>
+        <div><span class="build-stat-num">10</span><div class="build-stat-label">Categories</div></div>
+        <div><span class="build-stat-num">∞</span><div class="build-stat-label">Possibilities</div></div>
+      </div>
+    </div>
+    <div class="build-filters" id="build-filters"></div>
+    <div class="build-grid" id="build-grid"></div>
   </div>
 </section>
 
@@ -1281,6 +1337,292 @@ renderPrompts();
     </div>
   `).join('');
 })();
+
+// ═══════════════════════════════════════════
+// BUILD PANOS KHAN CUSTOM AI — 200 TOOLS
+// ═══════════════════════════════════════════
+const buildCats = [
+  {id:'all', label:'⭐ All 200 Tools', color:'#f59e0b'},
+  {id:'llm-apis', label:'🧠 LLM APIs & Models', color:'#7c3aed'},
+  {id:'frameworks', label:'⚙️ Frameworks & Orchestration', color:'#3b82f6'},
+  {id:'vector-db', label:'🗄️ Vector Databases', color:'#10b981'},
+  {id:'fine-tune', label:'🎯 Fine-Tuning & Training', color:'#ec4899'},
+  {id:'deploy', label:'🚀 Deployment & Hosting', color:'#ef4444'},
+  {id:'app-builder', label:'🏗️ AI App Builders', color:'#f97316'},
+  {id:'chatbot', label:'💬 Custom Chatbot Builders', color:'#0ea5e9'},
+  {id:'data', label:'📊 Data & Training Tools', color:'#84cc16'},
+  {id:'monitoring', label:'🔭 AI Monitoring & DevOps', color:'#a78bfa'},
+  {id:'dev-tools', label:'🛠️ Developer Tools & SDKs', color:'#34d399'}
+];
+
+const buildTools = [
+  // ── LLM APIs & Models (20) ──
+  {n:"OpenAI API",cat:"llm-apis",url:"https://platform.openai.com",desc:"GPT-4o, o3, DALL-E 3 and Whisper via API — the world's most capable models.",b:["api","hot"]},
+  {n:"Anthropic API",cat:"llm-apis",url:"https://anthropic.com/api",desc:"Claude 3.5 Sonnet & Opus API — best for safety-focused enterprise AI apps.",b:["api","hot"]},
+  {n:"Google Gemini API",cat:"llm-apis",url:"https://ai.google.dev",desc:"Gemini 1.5 Pro with 1M token context window — ideal for long-document AI.",b:["api","new"]},
+  {n:"Mistral AI API",cat:"llm-apis",url:"https://mistral.ai/api",desc:"Mistral Large and Mixtral — powerful open-weight models via simple API.",b:["api","os"]},
+  {n:"Cohere API",cat:"llm-apis",url:"https://cohere.com",desc:"Command R+ model optimized for enterprise RAG and search applications.",b:["api"]},
+  {n:"Together AI",cat:"llm-apis",url:"https://together.ai",desc:"Run 100+ open-source models (Llama, Mixtral) at 3x lower cost than OpenAI.",b:["api","hot"]},
+  {n:"Groq",cat:"llm-apis",url:"https://groq.com",desc:"Fastest LLM inference on earth — Llama 3 at 800+ tokens/sec.",b:["api","hot","new"]},
+  {n:"Fireworks AI",cat:"llm-apis",url:"https://fireworks.ai",desc:"Ultra-fast serverless inference for open source models.",b:["api","new"]},
+  {n:"Perplexity API",cat:"llm-apis",url:"https://perplexity.ai/api",desc:"Online LLM with real-time web search built in — perfect for research bots.",b:["api"]},
+  {n:"xAI Grok API",cat:"llm-apis",url:"https://x.ai/api",desc:"Grok-2 API by Elon Musk's xAI — excels at math, coding and humor.",b:["api","new"]},
+  {n:"Hugging Face Inference API",cat:"llm-apis",url:"https://huggingface.co/inference-api",desc:"Access 50,000+ open models including Llama, Falcon, and Zephyr.",b:["api","os","free"]},
+  {n:"Ollama",cat:"llm-apis",url:"https://ollama.com",desc:"Run Llama 3, Mistral, Phi-3 locally on your Mac/Linux with one command.",b:["os","free","hot"]},
+  {n:"LM Studio",cat:"llm-apis",url:"https://lmstudio.ai",desc:"Desktop app to download and run local LLMs with a built-in API server.",b:["os","free"]},
+  {n:"Jan.ai",cat:"llm-apis",url:"https://jan.ai",desc:"Fully offline, open source ChatGPT alternative that runs on your hardware.",b:["os","free"]},
+  {n:"Deepseek API",cat:"llm-apis",url:"https://platform.deepseek.com",desc:"DeepSeek V3 and R1 — state-of-the-art open models at ultra-low cost.",b:["api","hot","new"]},
+  {n:"AI21 Labs API",cat:"llm-apis",url:"https://ai21.com",desc:"Jamba models with 256K context — optimized for long-form enterprise content.",b:["api"]},
+  {n:"Replicate",cat:"llm-apis",url:"https://replicate.com",desc:"Run any AI model in the cloud — Stable Diffusion, LLaMA, Whisper and more.",b:["api","hot"]},
+  {n:"OpenRouter",cat:"llm-apis",url:"https://openrouter.ai",desc:"Single API to access every major LLM — auto-routes to cheapest/fastest.",b:["api","hot","new"]},
+  {n:"Nvidia NIM",cat:"llm-apis",url:"https://build.nvidia.com",desc:"Enterprise-grade LLM microservices optimized for Nvidia GPUs.",b:["api","new"]},
+  {n:"AWS Bedrock",cat:"llm-apis",url:"https://aws.amazon.com/bedrock",desc:"Access Claude, Llama, Mistral and Titan through AWS infrastructure.",b:["api"]},
+
+  // ── Frameworks & Orchestration (20) ──
+  {n:"LangChain",cat:"frameworks",url:"https://langchain.com",desc:"The most popular LLM framework — chain prompts, tools, memory and agents.",b:["os","api","hot"]},
+  {n:"LlamaIndex",cat:"frameworks",url:"https://llamaindex.ai",desc:"Data framework for building RAG pipelines over your own documents.",b:["os","api","hot"]},
+  {n:"CrewAI",cat:"frameworks",url:"https://crewai.com",desc:"Build multi-agent AI teams where each agent has a role, goal and tools.",b:["os","hot","new"]},
+  {n:"AutoGen",cat:"frameworks",url:"https://microsoft.github.io/autogen",desc:"Microsoft's multi-agent conversation framework for complex task automation.",b:["os","hot"]},
+  {n:"Semantic Kernel",cat:"frameworks",url:"https://github.com/microsoft/semantic-kernel",desc:"Microsoft SDK to integrate LLMs with C#, Python and Java apps.",b:["os","api"]},
+  {n:"Haystack",cat:"frameworks",url:"https://haystack.deepset.ai",desc:"End-to-end NLP framework for search, Q&A, and document AI pipelines.",b:["os"]},
+  {n:"DSPy",cat:"frameworks",url:"https://dspy.ai",desc:"Stanford's framework to programmatically optimize LLM prompts and chains.",b:["os","new"]},
+  {n:"Instructor",cat:"frameworks",url:"https://python.useinstructor.com",desc:"Get structured, typed outputs from any LLM — replaces parsing hacks.",b:["os","api"]},
+  {n:"Guidance",cat:"frameworks",url:"https://github.com/guidance-ai/guidance",desc:"Microsoft's language for constrained LLM generation — guarantees output format.",b:["os"]},
+  {n:"Outlines",cat:"frameworks",url:"https://outlines-dev.github.io/outlines",desc:"Structured text generation using formal grammars — no more bad JSON.",b:["os","new"]},
+  {n:"Vercel AI SDK",cat:"frameworks",url:"https://sdk.vercel.ai",desc:"TypeScript toolkit to build AI-powered UIs with React, Next.js and more.",b:["os","api","hot"]},
+  {n:"LangGraph",cat:"frameworks",url:"https://langchain-ai.github.io/langgraph",desc:"Build stateful, multi-step agent workflows with graph-based architecture.",b:["os","hot","new"]},
+  {n:"Pydantic AI",cat:"frameworks",url:"https://ai.pydantic.dev",desc:"Agent framework from the Pydantic team — type-safe, fast, production-ready.",b:["os","new"]},
+  {n:"Agno",cat:"frameworks",url:"https://agno.com",desc:"Python framework for building AI agents 10x faster with built-in memory.",b:["os","new"]},
+  {n:"PromptFlow",cat:"frameworks",url:"https://microsoft.github.io/promptflow",desc:"Azure MLOps tool for building, evaluating and deploying LLM flows.",b:["os"]},
+  {n:"Mirascope",cat:"frameworks",url:"https://mirascope.com",desc:"Python library for clean, modular LLM code without boilerplate.",b:["os","new"]},
+  {n:"LMQL",cat:"frameworks",url:"https://lmql.ai",desc:"Query language for LLMs — mix Python code with natural language constraints.",b:["os"]},
+  {n:"Marvin",cat:"frameworks",url:"https://askmarvin.ai",desc:"AI engineering toolkit — classify, extract, transform and generate with LLMs.",b:["os","api"]},
+  {n:"Controlflow",cat:"frameworks",url:"https://controlflow.ai",desc:"Python framework to build agentic workflows with structured AI tasks.",b:["os","new"]},
+  {n:"BeeAI",cat:"frameworks",url:"https://i-am-bee.github.io/bee-agent-framework",desc:"IBM's open-source framework for building production AI agents in TypeScript.",b:["os","new"]},
+
+  // ── Vector Databases (20) ──
+  {n:"Pinecone",cat:"vector-db",url:"https://pinecone.io",desc:"Managed vector database for production AI apps — millions of vectors, ms latency.",b:["api","hot"]},
+  {n:"Weaviate",cat:"vector-db",url:"https://weaviate.io",desc:"Open source vector database with hybrid search and auto-classification.",b:["os","api","hot"]},
+  {n:"Chroma",cat:"vector-db",url:"https://trychroma.com",desc:"The simplest open-source vector DB — perfect for local dev and LangChain.",b:["os","free","hot"]},
+  {n:"Qdrant",cat:"vector-db",url:"https://qdrant.tech",desc:"High-performance vector search engine built in Rust — cloud and self-hosted.",b:["os","api"]},
+  {n:"Milvus",cat:"vector-db",url:"https://milvus.io",desc:"Cloud-native vector database for billion-scale similarity search.",b:["os","api"]},
+  {n:"PgVector",cat:"vector-db",url:"https://github.com/pgvector/pgvector",desc:"Add vector similarity search to your existing PostgreSQL database.",b:["os","free"]},
+  {n:"Supabase Vector",cat:"vector-db",url:"https://supabase.com/vector",desc:"Postgres-powered vector storage — one database for all your AI data.",b:["os","api","new"]},
+  {n:"LanceDB",cat:"vector-db",url:"https://lancedb.com",desc:"Serverless vector database embedded into your app — no infra needed.",b:["os","new"]},
+  {n:"Zilliz",cat:"vector-db",url:"https://zilliz.com",desc:"Fully managed Milvus cloud — enterprise vector search at any scale.",b:["api"]},
+  {n:"Turbopuffer",cat:"vector-db",url:"https://turbopuffer.com",desc:"The fastest and cheapest vector database in the cloud.",b:["api","new"]},
+  {n:"Vespa",cat:"vector-db",url:"https://vespa.ai",desc:"Yahoo's open source engine for vectors, text search and ML inference together.",b:["os"]},
+  {n:"Redis Vector",cat:"vector-db",url:"https://redis.io/solutions/vector-search",desc:"In-memory vector search with Redis — lowest latency for real-time AI.",b:["api"]},
+  {n:"Elasticsearch Vector",cat:"vector-db",url:"https://elastic.co/elasticsearch",desc:"Add dense vector search to your Elasticsearch cluster for hybrid RAG.",b:["api"]},
+  {n:"MongoDB Atlas Vector",cat:"vector-db",url:"https://mongodb.com/atlas/database",desc:"Native vector search built into MongoDB Atlas — no separate infra.",b:["api"]},
+  {n:"Activeloop Deep Lake",cat:"vector-db",url:"https://activeloop.ai",desc:"Multi-modal vector store for AI datasets, supporting images, text, video.",b:["os","api"]},
+  {n:"Marqo",cat:"vector-db",url:"https://marqo.ai",desc:"Tensor search for developers — end-to-end vector search with embeddings.",b:["os","api"]},
+  {n:"SingleStore",cat:"vector-db",url:"https://singlestore.com",desc:"Real-time SQL + vector database for production AI applications.",b:["api"]},
+  {n:"Upstash Vector",cat:"vector-db",url:"https://upstash.com/vector",desc:"Serverless vector database with pay-per-use pricing — free tier available.",b:["api","free","new"]},
+  {n:"Neon Serverless",cat:"vector-db",url:"https://neon.tech",desc:"Postgres with pgvector that scales to zero — great for RAG side projects.",b:["api","free"]},
+  {n:"Turbine by Cozodb",cat:"vector-db",url:"https://cozodb.org",desc:"Embedded transactional graph + vector database for Rust and Python apps.",b:["os","new"]},
+
+  // ── Fine-Tuning & Training (20) ──
+  {n:"OpenAI Fine-tuning",cat:"fine-tune",url:"https://platform.openai.com/fine-tuning",desc:"Fine-tune GPT-4o mini and GPT-3.5 on your own data in minutes.",b:["api","hot"]},
+  {n:"Hugging Face AutoTrain",cat:"fine-tune",url:"https://huggingface.co/autotrain",desc:"No-code fine-tuning for LLMs, image classifiers and more — zero ML experience needed.",b:["api","free","hot"]},
+  {n:"Axolotl",cat:"fine-tune",url:"https://github.com/OpenAccess-AI-Collective/axolotl",desc:"Popular open-source toolkit for fine-tuning LLMs with LoRA and QLoRA.",b:["os","free"]},
+  {n:"Unsloth",cat:"fine-tune",url:"https://unsloth.ai",desc:"Fine-tune Llama 3, Mistral and Gemma 2x faster with 70% less memory.",b:["os","free","hot","new"]},
+  {n:"LLaMA Factory",cat:"fine-tune",url:"https://github.com/hiyouga/LLaMA-Factory",desc:"Unified efficient fine-tuning of 100+ LLMs — LoRA, QLoRA, full fine-tune.",b:["os","free","hot"]},
+  {n:"Torchtune",cat:"fine-tune",url:"https://github.com/pytorch/torchtune",desc:"PyTorch's native fine-tuning library — simple, extensible, production-grade.",b:["os","free","new"]},
+  {n:"Predibase",cat:"fine-tune",url:"https://predibase.com",desc:"Fine-tune and serve open-source LLMs 100x cheaper with LoRA adapters.",b:["api","hot"]},
+  {n:"Modal",cat:"fine-tune",url:"https://modal.com",desc:"Run GPU training jobs in Python with one decorator — zero DevOps.",b:["api","hot","new"]},
+  {n:"Lambda Labs",cat:"fine-tune",url:"https://lambdalabs.com",desc:"On-demand GPU cloud for AI training — cheapest H100s on the market.",b:["api"]},
+  {n:"Vast.ai",cat:"fine-tune",url:"https://vast.ai",desc:"Rent cheap GPU compute from a peer-to-peer marketplace for training.",b:["api","free"]},
+  {n:"RunPod",cat:"fine-tune",url:"https://runpod.io",desc:"GPU cloud for AI/ML — train and deploy with serverless or pod instances.",b:["api","hot"]},
+  {n:"Weights & Biases",cat:"fine-tune",url:"https://wandb.ai",desc:"Track experiments, compare runs and visualize training metrics in real time.",b:["api","hot"]},
+  {n:"ClearML",cat:"fine-tune",url:"https://clear.ml",desc:"Open source MLOps platform — experiment tracking, data versioning, orchestration.",b:["os","api"]},
+  {n:"MLflow",cat:"fine-tune",url:"https://mlflow.org",desc:"Databricks open-source platform for full ML lifecycle management.",b:["os","free"]},
+  {n:"DVC",cat:"fine-tune",url:"https://dvc.org",desc:"Data version control for ML projects — Git for your datasets and models.",b:["os","free"]},
+  {n:"Mergekit",cat:"fine-tune",url:"https://github.com/arcee-ai/mergekit",desc:"Merge multiple LLMs into one superior model — no GPU required.",b:["os","free","new"]},
+  {n:"TRL (HuggingFace)",cat:"fine-tune",url:"https://github.com/huggingface/trl",desc:"Transformer Reinforcement Learning — RLHF, RLAIF and DPO training.",b:["os","free"]},
+  {n:"Argilla",cat:"fine-tune",url:"https://argilla.io",desc:"Open source data annotation platform for building AI training datasets.",b:["os","free"]},
+  {n:"Label Studio",cat:"fine-tune",url:"https://labelstud.io",desc:"Multi-type data labeling — text, images, audio, video for ML training.",b:["os","free","hot"]},
+  {n:"Together Fine-tuning",cat:"fine-tune",url:"https://together.ai/fine-tuning",desc:"Fine-tune Llama and Mixtral on Together AI — cheapest GPU rates.",b:["api","new"]},
+
+  // ── Deployment & Hosting (20) ──
+  {n:"Vercel",cat:"deploy",url:"https://vercel.com",desc:"Deploy AI apps with zero config — built-in edge functions, AI SDK and streaming.",b:["api","hot"]},
+  {n:"Railway",cat:"deploy",url:"https://railway.app",desc:"Deploy any AI app from GitHub in seconds — automatic infra provisioning.",b:["api","hot","free"]},
+  {n:"Render",cat:"deploy",url:"https://render.com",desc:"Host AI backends, APIs and bots — free tier, auto-deploy from GitHub.",b:["api","free"]},
+  {n:"Fly.io",cat:"deploy",url:"https://fly.io",desc:"Deploy containers globally close to users — great for low-latency AI apps.",b:["api"]},
+  {n:"Hugging Face Spaces",cat:"deploy",url:"https://huggingface.co/spaces",desc:"Free hosting for ML demos — deploy Gradio and Streamlit apps instantly.",b:["free","hot"]},
+  {n:"Google Cloud Run",cat:"deploy",url:"https://cloud.google.com/run",desc:"Serverless containers for AI APIs — pay only when requests come in.",b:["api"]},
+  {n:"AWS Lambda AI",cat:"deploy",url:"https://aws.amazon.com/lambda",desc:"Run AI inference functions serverlessly — scales to zero between requests.",b:["api"]},
+  {n:"Azure AI Services",cat:"deploy",url:"https://azure.microsoft.com/ai-services",desc:"Host AI models on Azure with enterprise SLAs and built-in compliance.",b:["api"]},
+  {n:"BentoML",cat:"deploy",url:"https://bentoml.com",desc:"Package and deploy ML models as production APIs in minutes.",b:["os","api"]},
+  {n:"Baseten",cat:"deploy",url:"https://baseten.co",desc:"Deploy any ML model as a high-performance API — optimized for speed.",b:["api","hot"]},
+  {n:"Beam Cloud",cat:"deploy",url:"https://beam.cloud",desc:"Serverless GPU infrastructure — run AI workloads without managing servers.",b:["api","new"]},
+  {n:"Cerebrium",cat:"deploy",url:"https://cerebrium.ai",desc:"Deploy ML models serverlessly — cold starts under 1 second.",b:["api","new"]},
+  {n:"Lepton AI",cat:"deploy",url:"https://lepton.ai",desc:"Deploy LLMs and diffusion models as APIs in seconds with one command.",b:["api","new"]},
+  {n:"Cloudflare Workers AI",cat:"deploy",url:"https://ai.cloudflare.com",desc:"Run AI inference at the edge globally — lowest latency, generous free tier.",b:["api","free","hot","new"]},
+  {n:"Banana.dev",cat:"deploy",url:"https://banana.dev",desc:"Serverless GPU inference for custom AI models — pay per millisecond.",b:["api"]},
+  {n:"SageMaker",cat:"deploy",url:"https://aws.amazon.com/sagemaker",desc:"AWS managed platform for training, deploying and monitoring ML models.",b:["api"]},
+  {n:"Vertex AI",cat:"deploy",url:"https://cloud.google.com/vertex-ai",desc:"Google's unified ML platform — deploy models with AutoML or custom code.",b:["api"]},
+  {n:"Deta Space",cat:"deploy",url:"https://deta.space",desc:"Personal cloud for deploying apps and AI microservices — fully free.",b:["free","new"]},
+  {n:"Koyeb",cat:"deploy",url:"https://koyeb.com",desc:"Serverless platform for deploying AI APIs globally — edge-native.",b:["api","free"]},
+  {n:"Porter",cat:"deploy",url:"https://porter.run",desc:"Deploy AI apps on your own AWS/GCP — Heroku-like UX with full control.",b:["api"]},
+
+  // ── AI App Builders (20) ──
+  {n:"Streamlit",cat:"app-builder",url:"https://streamlit.io",desc:"Build and share AI data apps in pure Python — fastest path to a working demo.",b:["os","free","hot"]},
+  {n:"Gradio",cat:"app-builder",url:"https://gradio.app",desc:"Create ML model UIs in 3 lines of Python — perfect for sharing AI demos.",b:["os","free","hot"]},
+  {n:"Flowise",cat:"app-builder",url:"https://flowiseai.com",desc:"Drag-and-drop builder for LangChain and LlamaIndex flows — no code.",b:["os","free","hot"]},
+  {n:"Dify",cat:"app-builder",url:"https://dify.ai",desc:"Open-source LLM app development platform — build RAG and agent apps visually.",b:["os","free","hot","new"]},
+  {n:"Langflow",cat:"app-builder",url:"https://langflow.org",desc:"Visual builder for LangChain components — export as Python or API.",b:["os","free"]},
+  {n:"AnythingLLM",cat:"app-builder",url:"https://anythingllm.com",desc:"Desktop ChatGPT over your own docs — free, private, supports 100+ LLMs.",b:["os","free","hot","new"]},
+  {n:"Open WebUI",cat:"app-builder",url:"https://openwebui.com",desc:"Self-hosted ChatGPT-like UI for local LLMs — works with Ollama and OpenAI.",b:["os","free","hot","new"]},
+  {n:"PrivateGPT",cat:"app-builder",url:"https://privategpt.io",desc:"100% local AI document chat — no internet, no API key, fully private.",b:["os","free","new"]},
+  {n:"Bolt.new",cat:"app-builder",url:"https://bolt.new",desc:"Describe an app in plain English and watch it get built and deployed live.",b:["hot","new"]},
+  {n:"v0.dev",cat:"app-builder",url:"https://v0.dev",desc:"Generate React UI components from a prompt — Vercel's AI frontend builder.",b:["hot","new"]},
+  {n:"Lovable",cat:"app-builder",url:"https://lovable.dev",desc:"Full-stack AI web app builder — describe what you want, get working code.",b:["hot","new"]},
+  {n:"Replit Agent",cat:"app-builder",url:"https://replit.com/agent",desc:"AI that builds, runs and deploys your app in the browser — zero setup.",b:["hot","new"]},
+  {n:"Retool AI",cat:"app-builder",url:"https://retool.com",desc:"Build AI-powered internal tools with drag-and-drop — connects to any API.",b:["api","hot"]},
+  {n:"AppSmith",cat:"app-builder",url:"https://appsmith.com",desc:"Open source platform to build admin panels, dashboards and CRUD apps with AI.",b:["os","free"]},
+  {n:"n8n",cat:"app-builder",url:"https://n8n.io",desc:"Visual workflow builder with 400+ integrations and native AI nodes.",b:["os","free","hot"]},
+  {n:"Activepieces",cat:"app-builder",url:"https://activepieces.com",desc:"Open source Zapier alternative — 200+ integrations, AI steps built in.",b:["os","free","new"]},
+  {n:"Superagent",cat:"app-builder",url:"https://superagent.sh",desc:"Open source framework for building memory-powered AI assistants fast.",b:["os","new"]},
+  {n:"Rivet",cat:"app-builder",url:"https://rivet.ironcladapp.com",desc:"Visual AI programming environment for building LLM flows — open source.",b:["os","free"]},
+  {n:"Vellum AI",cat:"app-builder",url:"https://vellum.ai",desc:"Platform to build, test and deploy LLM prompts for production AI features.",b:["api","new"]},
+  {n:"Dust",cat:"app-builder",url:"https://dust.tt",desc:"Build internal AI assistants connected to your company's knowledge base.",b:["new"]},
+
+  // ── Custom Chatbot Builders (20) ──
+  {n:"Botpress",cat:"chatbot",url:"https://botpress.com",desc:"Enterprise chatbot platform with LLM — build and deploy on any channel.",b:["free","hot"]},
+  {n:"Voiceflow",cat:"chatbot",url:"https://voiceflow.com",desc:"Design multi-step AI agent conversations with a visual canvas.",b:["hot"]},
+  {n:"Typebot",cat:"chatbot",url:"https://typebot.io",desc:"Open source typeform-like chat builder — embed on any website for free.",b:["os","free","hot"]},
+  {n:"Chatbase",cat:"chatbot",url:"https://chatbase.co",desc:"Build a GPT-4 chatbot trained on your website, PDFs and docs in 2 minutes.",b:["hot","new"]},
+  {n:"CustomGPT",cat:"chatbot",url:"https://customgpt.ai",desc:"Create a business AI assistant that only answers from your own content.",b:["hot"]},
+  {n:"SiteGPT",cat:"chatbot",url:"https://sitegpt.ai",desc:"Train ChatGPT on your website and embed it as a support bot.",b:["new"]},
+  {n:"Mendable",cat:"chatbot",url:"https://mendable.ai",desc:"AI chat for developer docs — train on your docs, add it in one line of code.",b:["api","new"]},
+  {n:"Chaindesk",cat:"chatbot",url:"https://chaindesk.ai",desc:"No-code platform to create custom AI agents from your content.",b:["os","free"]},
+  {n:"Coze",cat:"chatbot",url:"https://coze.com",desc:"ByteDance's AI bot builder — publish to Discord, Telegram, Slack instantly.",b:["free","new","hot"]},
+  {n:"Poe",cat:"chatbot",url:"https://poe.com",desc:"Create and share custom AI bots built on top of Claude, GPT-4 and more.",b:["free","hot"]},
+  {n:"StackAI",cat:"chatbot",url:"https://stack-ai.com",desc:"Build and deploy enterprise AI workflows without code — SOC2 compliant.",b:["new"]},
+  {n:"Inkeep",cat:"chatbot",url:"https://inkeep.com",desc:"AI support and search for developer tools — trained on docs, Stack Overflow.",b:["api","new"]},
+  {n:"Kore.ai",cat:"chatbot",url:"https://kore.ai",desc:"Enterprise conversational AI platform for customer and employee experience.",b:["api"]},
+  {n:"Yellow.ai",cat:"chatbot",url:"https://yellow.ai",desc:"Enterprise AI chatbot platform with omnichannel support and analytics.",b:["hot"]},
+  {n:"Landbot AI",cat:"chatbot",url:"https://landbot.io",desc:"No-code chatbot builder with WhatsApp, web and API integrations.",b:["free"]},
+  {n:"Tidio AI",cat:"chatbot",url:"https://tidio.com",desc:"AI customer support chatbot for e-commerce — integrates with Shopify.",b:["free","hot"]},
+  {n:"Manychat",cat:"chatbot",url:"https://manychat.com",desc:"AI chatbot for Instagram DMs, Facebook Messenger and WhatsApp marketing.",b:["free","hot"]},
+  {n:"Freshchat AI",cat:"chatbot",url:"https://freshworks.com/freshchat",desc:"AI customer messaging platform with auto-resolve and sentiment analysis.",b:["api"]},
+  {n:"Intercom Fin",cat:"chatbot",url:"https://intercom.com/fin",desc:"Intercom's AI agent that resolves 50%+ of support queries automatically.",b:["hot","new"]},
+  {n:"Zendesk AI",cat:"chatbot",url:"https://zendesk.com/ai",desc:"Generative AI for customer service — auto-replies, summaries, tone analysis.",b:["hot"]},
+
+  // ── Data & Training Tools (20) ──
+  {n:"Roboflow",cat:"data",url:"https://roboflow.com",desc:"Computer vision data platform — annotate, augment and train vision models.",b:["free","hot","api"]},
+  {n:"Scale AI",cat:"data",url:"https://scale.com",desc:"Human-in-the-loop data labeling for training AI at enterprise scale.",b:["api","hot"]},
+  {n:"Snorkel AI",cat:"data",url:"https://snorkel.ai",desc:"Programmatic data labeling with weak supervision — 10x faster than manual.",b:["api"]},
+  {n:"Datasaur",cat:"data",url:"https://datasaur.ai",desc:"NLP labeling platform with AI-assisted annotation and team collaboration.",b:["api"]},
+  {n:"Prodigy",cat:"data",url:"https://prodi.gy",desc:"Annotation tool from spaCy creators — scriptable, active learning built in.",b:["api"]},
+  {n:"Cleanlab",cat:"data",url:"https://cleanlab.ai",desc:"Find and fix label errors in your ML datasets automatically with AI.",b:["api","new"]},
+  {n:"Activeloop",cat:"data",url:"https://activeloop.ai",desc:"Dataset storage and versioning for deep learning — PyTorch and TF native.",b:["os","api","free"]},
+  {n:"Hugging Face Datasets",cat:"data",url:"https://huggingface.co/datasets",desc:"50,000+ ready-to-use ML datasets — one-line downloads for any task.",b:["os","free","hot"]},
+  {n:"Kaggle",cat:"data",url:"https://kaggle.com",desc:"World's largest ML dataset and competition platform — free GPU notebooks.",b:["free","hot"]},
+  {n:"Synthetic Data Vault",cat:"data",url:"https://sdv.dev",desc:"Generate synthetic training data that mirrors your real data statistically.",b:["os","free"]},
+  {n:"Faker.js / Mimesis",cat:"data",url:"https://fakerjs.dev",desc:"Generate realistic fake data for testing and training AI models.",b:["os","free"]},
+  {n:"Apify",cat:"data",url:"https://apify.com",desc:"Web scraping and data extraction platform — build AI training datasets from the web.",b:["api","free"]},
+  {n:"Bright Data",cat:"data",url:"https://brightdata.com",desc:"Web scraping infrastructure for collecting AI training data at scale.",b:["api"]},
+  {n:"CVAT",cat:"data",url:"https://cvat.ai",desc:"Free open-source computer vision annotation tool — used by 200K+ teams.",b:["os","free"]},
+  {n:"SuperAnnotate",cat:"data",url:"https://superannotate.com",desc:"AI-assisted annotation platform for image, video and NLP training data.",b:["api","hot"]},
+  {n:"Encord",cat:"data",url:"https://encord.com",desc:"Active learning annotation platform for computer vision AI projects.",b:["api","new"]},
+  {n:"MinIO",cat:"data",url:"https://min.io",desc:"S3-compatible object storage for AI datasets — deploy on-premise or cloud.",b:["os","free"]},
+  {n:"DuckDB",cat:"data",url:"https://duckdb.org",desc:"In-process SQL database for analyzing AI training datasets at warp speed.",b:["os","free","hot"]},
+  {n:"Polars",cat:"data",url:"https://pola.rs",desc:"Lightning-fast DataFrame library for processing large AI training datasets.",b:["os","free","new"]},
+  {n:"Great Expectations",cat:"data",url:"https://greatexpectations.io",desc:"Data validation framework — ensure your training data is clean and correct.",b:["os","free"]},
+
+  // ── AI Monitoring & DevOps (20) ──
+  {n:"LangSmith",cat:"monitoring",url:"https://smith.langchain.com",desc:"Debug, test and monitor LangChain apps in production — trace every LLM call.",b:["api","hot","new"]},
+  {n:"Langfuse",cat:"monitoring",url:"https://langfuse.com",desc:"Open source LLM observability — traces, evals and analytics for AI apps.",b:["os","free","hot","new"]},
+  {n:"Helicone",cat:"monitoring",url:"https://helicone.ai",desc:"One line to add LLM observability — proxy any OpenAI request for free.",b:["free","hot","new"]},
+  {n:"PromptLayer",cat:"monitoring",url:"https://promptlayer.com",desc:"LLM ops platform — log, search and analyze every prompt and response.",b:["api","free"]},
+  {n:"Arize AI",cat:"monitoring",url:"https://arize.com",desc:"ML observability and LLM monitoring — detect drift, hallucinations and bias.",b:["api","hot"]},
+  {n:"WhyLabs",cat:"monitoring",url:"https://whylabs.ai",desc:"AI observability platform for monitoring model health and data quality.",b:["api"]},
+  {n:"Truera",cat:"monitoring",url:"https://truera.com",desc:"AI quality management — test, evaluate and monitor LLMs for accuracy.",b:["api"]},
+  {n:"Braintrust",cat:"monitoring",url:"https://braintrust.dev",desc:"AI evaluation and logging platform — A/B test prompts in production.",b:["api","new"]},
+  {n:"Patronus AI",cat:"monitoring",url:"https://patronus.ai",desc:"Automated LLM evaluation — test accuracy, hallucinations and safety at scale.",b:["api","new"]},
+  {n:"Ragas",cat:"monitoring",url:"https://ragas.io",desc:"Open source framework to evaluate RAG pipelines — precision, recall, faithfulness.",b:["os","free","new"]},
+  {n:"Phoenix by Arize",cat:"monitoring",url:"https://phoenix.arize.com",desc:"Open source AI observability — tracing and eval in a local Jupyter-style UI.",b:["os","free","new"]},
+  {n:"Portkey AI",cat:"monitoring",url:"https://portkey.ai",desc:"AI gateway — single API for 100+ models with caching, fallbacks and monitoring.",b:["api","free","new"]},
+  {n:"Humanloop",cat:"monitoring",url:"https://humanloop.com",desc:"Evaluate and fine-tune prompts collaboratively — track version performance.",b:["api","hot"]},
+  {n:"Log10.io",cat:"monitoring",url:"https://log10.io",desc:"LLM data and feedback logging — use production data to improve your model.",b:["api","free"]},
+  {n:"Weights & Biases Weave",cat:"monitoring",url:"https://weave-docs.wandb.ai",desc:"W&B's LLM debugging and evaluation toolkit — open source and free.",b:["os","free","new"]},
+  {n:"MLflow AI Gateway",cat:"monitoring",url:"https://mlflow.org/docs/latest/gateway",desc:"Unified AI gateway for routing requests across different LLM providers.",b:["os","free"]},
+  {n:"Evidently AI",cat:"monitoring",url:"https://evidentlyai.com",desc:"Open source ML monitoring — detect data drift and model degradation.",b:["os","free"]},
+  {n:"Giskard",cat:"monitoring",url:"https://giskard.ai",desc:"AI quality testing — scan LLMs and ML models for vulnerabilities before shipping.",b:["os","free","new"]},
+  {n:"TruLens",cat:"monitoring",url:"https://trulens.org",desc:"Open source evaluation of LLM apps — answer relevance, groundedness, toxicity.",b:["os","free"]},
+  {n:"Zenml",cat:"monitoring",url:"https://zenml.io",desc:"Open MLOps framework — standardize ML pipelines across any cloud or tool.",b:["os","free"]},
+
+  // ── Developer Tools & SDKs (20) ──
+  {n:"OpenAI Python SDK",cat:"dev-tools",url:"https://github.com/openai/openai-python",desc:"Official OpenAI Python client — async, streaming and structured outputs.",b:["os","free","api"]},
+  {n:"Anthropic Python SDK",cat:"dev-tools",url:"https://github.com/anthropic/anthropic-sdk-python",desc:"Official Claude API client with tool use, streaming and computer use.",b:["os","free","api"]},
+  {n:"LiteLLM",cat:"dev-tools",url:"https://litellm.ai",desc:"Call any LLM with one unified OpenAI-compatible API — 100+ models.",b:["os","free","hot","new"]},
+  {n:"Instructor JS",cat:"dev-tools",url:"https://instructor-ai.github.io/instructor-js",desc:"Structured LLM outputs for TypeScript — Zod-based, zero boilerplate.",b:["os","free","new"]},
+  {n:"Mastra",cat:"dev-tools",url:"https://mastra.ai",desc:"TypeScript AI agent framework with memory, tools and workflow built in.",b:["os","free","new"]},
+  {n:"Composio",cat:"dev-tools",url:"https://composio.dev",desc:"250+ tool integrations for AI agents — GitHub, Slack, Gmail in one SDK.",b:["os","api","hot","new"]},
+  {n:"Browserbase",cat:"dev-tools",url:"https://browserbase.com",desc:"Headless browser API for AI agents to interact with any website.",b:["api","new"]},
+  {n:"Steel.dev",cat:"dev-tools",url:"https://steel.dev",desc:"Browser automation infrastructure for AI agents — parallel sessions, anti-bot.",b:["api","new"]},
+  {n:"E2B",cat:"dev-tools",url:"https://e2b.dev",desc:"Sandboxed cloud environments for AI agents to run code safely.",b:["api","hot","new"]},
+  {n:"Scrapegraph AI",cat:"dev-tools",url:"https://scrapegraphai.com",desc:"LLM-powered web scraper — describe what data you want, get it back as JSON.",b:["os","free","new"]},
+  {n:"Jinja2",cat:"dev-tools",url:"https://jinja.palletsprojects.com",desc:"Templating engine for dynamic prompt engineering — loops, conditions in prompts.",b:["os","free"]},
+  {n:"Pydantic",cat:"dev-tools",url:"https://pydantic.dev",desc:"Python data validation library — essential for structured LLM outputs.",b:["os","free","hot"]},
+  {n:"FastAPI",cat:"dev-tools",url:"https://fastapi.tiangolo.com",desc:"Build AI API backends in Python with automatic OpenAPI docs and async support.",b:["os","free","hot"]},
+  {n:"Typer",cat:"dev-tools",url:"https://typer.tiangolo.com",desc:"Build AI CLI tools in Python with type hints — zero boilerplate.",b:["os","free"]},
+  {n:"Rich",cat:"dev-tools",url:"https://rich.readthedocs.io",desc:"Beautiful terminal output for AI CLI apps — progress bars, tables, markdown.",b:["os","free"]},
+  {n:"HTTPX",cat:"dev-tools",url:"https://www.python-httpx.org",desc:"Async HTTP client for Python — essential for calling LLM APIs efficiently.",b:["os","free"]},
+  {n:"Tavily Search API",cat:"dev-tools",url:"https://tavily.com",desc:"Search API built for AI agents — real-time web results optimized for LLMs.",b:["api","free","hot","new"]},
+  {n:"Browserless",cat:"dev-tools",url:"https://browserless.io",desc:"Headless Chrome API for web scraping and AI automation tasks.",b:["api","free"]},
+  {n:"Apify SDK",cat:"dev-tools",url:"https://sdk.apify.com",desc:"Toolkit for building web scrapers and AI data pipelines in Node.js.",b:["os","free","api"]},
+  {n:"PostHog AI",cat:"dev-tools",url:"https://posthog.com",desc:"Open source analytics and feature flags — A/B test AI features in production.",b:["os","free","hot"]}
+];
+
+function renderBuildAI(filterCat = 'all') {
+  const grid = document.getElementById('build-grid');
+  const tools = filterCat === 'all' ? buildTools : buildTools.filter(t => t.cat === filterCat);
+  const catInfo = {
+    'llm-apis': {icon:'🧠', color:'#7c3aed'},
+    'frameworks': {icon:'⚙️', color:'#3b82f6'},
+    'vector-db': {icon:'🗄️', color:'#10b981'},
+    'fine-tune': {icon:'🎯', color:'#ec4899'},
+    'deploy': {icon:'🚀', color:'#ef4444'},
+    'app-builder': {icon:'🏗️', color:'#f97316'},
+    'chatbot': {icon:'💬', color:'#0ea5e9'},
+    'data': {icon:'📊', color:'#84cc16'},
+    'monitoring': {icon:'🔭', color:'#a78bfa'},
+    'dev-tools': {icon:'🛠️', color:'#34d399'}
+  };
+  const badgeMap = {free:'free',api:'api',os:'os',new:'new',hot:'hot'};
+  grid.innerHTML = tools.map(t => {
+    const ci = catInfo[t.cat] || {icon:'🤖',color:'#f59e0b'};
+    const badges = (t.b||[]).map(b => `<span class="build-badge ${badgeMap[b]||''}">${b==='os'?'Open Source':b==='api'?'API':b==='free'?'Free':b==='new'?'New':'🔥 Hot'}</span>`).join('');
+    return `<a href="${t.url}" target="_blank" rel="noopener" class="build-card" style="--bc:linear-gradient(90deg,${ci.color},${ci.color}88)">
+      <div class="build-card-header">
+        <span class="build-cat-icon">${ci.icon}</span>
+        <span class="build-card-name">${t.n}</span>
+      </div>
+      <div class="build-card-cat">${buildCats.find(c=>c.id===t.cat)?.label?.replace(/^[^ ]+ /,'') || t.cat}</div>
+      <div class="build-card-desc">${t.desc}</div>
+      ${badges ? `<div class="build-card-badges">${badges}</div>` : ''}
+    </a>`;
+  }).join('');
+}
+
+function initBuildFilters() {
+  const wrap = document.getElementById('build-filters');
+  wrap.innerHTML = buildCats.map(c =>
+    `<button class="build-filter-btn ${c.id==='all'?'active':''}" onclick="filterBuildAI('${c.id}',this)">${c.label}</button>`
+  ).join('');
+  renderBuildAI('all');
+}
+
+function filterBuildAI(cat, btn) {
+  document.querySelectorAll('.build-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderBuildAI(cat);
+}
+
+initBuildFilters();
 
 // FORMS
 function newsletter() {
